@@ -18,6 +18,6 @@ jobs:
         with:
           python-version: "3.13"
 
-      - run: pip install mkdocs-material "mkdocs<2"
+      - run: pip install mkdocs-material "mkdocs<2" mkdocs-llmstxt
 
       - run: mkdocs gh-deploy --force

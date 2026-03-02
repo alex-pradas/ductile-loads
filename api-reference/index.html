@@ -1,0 +1,1613 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Loads processing tool for structural analysis">
+      
+      
+      
+        <link rel="canonical" href="https://alex-pradas.github.io/ductile-loads/api-reference/">
+      
+      
+        <link rel="prev" href="../getting-started/">
+      
+      
+        <link rel="next" href="../formats/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.3">
+    
+    
+      
+        <title>API Reference - ductile-loads</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#api-reference" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="ductile-loads" class="md-header__button md-logo" aria-label="ductile-loads" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ductile-loads
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              API Reference
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/alex-pradas/ductile-loads" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    alex-pradas/ductile-loads
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="ductile-loads" class="md-nav__button md-logo" aria-label="ductile-loads" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    ductile-loads
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/alex-pradas/ductile-loads" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    alex-pradas/ductile-loads
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#data-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data Models
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Data Models">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#forcemoment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ForceMoment
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pointload" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PointLoad
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loadcase" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LoadCase
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#units" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Units
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loadset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LoadSet
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#loadset-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LoadSet Methods
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="LoadSet Methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#io" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        I/O
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="I/O">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#loadsetread_jsonfile_path-loadset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LoadSet.read_json(file_path) -&gt; LoadSet
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loadsetread_ansysfile_path-units-namenone-version1-loadset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LoadSet.read_ansys(file_path, units, name=None, version=1) -&gt; LoadSet
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loadsetto_jsonfile_pathnone-indent2-str" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        loadset.to_json(file_path=None, indent=2) -&gt; str
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loadsetto_ansysfolder_pathtemp-name_stemnone-excludenone-none" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        loadset.to_ansys(folder_path="temp", name_stem=None, exclude=None) -&gt; None
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loadsetgenerate_json_schemaoutput_filenone-dict" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LoadSet.generate_json_schema(output_file=None) -&gt; dict
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Processing
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Processing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#loadsetconvert_tounits-loadset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        loadset.convert_to(units) -&gt; LoadSet
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loadsetfactorby-loadset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        loadset.factor(by) -&gt; LoadSet
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loadsetenvelope-loadset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        loadset.envelope() -&gt; LoadSet
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Analysis
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Analysis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#loadsetget_point_extremesoutputnone-dict" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        loadset.get_point_extremes(output=None) -&gt; dict
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loadsetcompare_toother-loadsetcompare" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        loadset.compare_to(other) -&gt; LoadSetCompare
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#display" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Display
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Display">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#loadsetprint_headn5-none" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        loadset.print_head(n=5) -&gt; None
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loadsetprint_table-none" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        loadset.print_table() -&gt; None
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loadsetprint_extremes-none" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        loadset.print_extremes() -&gt; None
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loadsetprint_envelope-none" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        loadset.print_envelope() -&gt; None
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loadsetenvelope_to_markdownoutputnone-str" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        loadset.envelope_to_markdown(output=None) -&gt; str
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#loadsetcompare" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LoadSetCompare
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="LoadSetCompare">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#comparisonrow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ComparisonRow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Methods
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#compareto_dict-dict" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        compare.to_dict() -&gt; dict
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compareto_jsonindent2-str" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        compare.to_json(indent=2) -&gt; str
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comparenew_exceeds_old-bool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        compare.new_exceeds_old() -&gt; bool
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comparegenerate_comparison_reportoutput_dir-report_namecomparison_report-image_formatpng-indent2-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        compare.generate_comparison_report(output_dir, report_name="comparison_report", image_format="png", indent=2) -&gt; Path
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comparegenerate_range_chartsoutput_dirnone-image_formatpng-as_base64false-dictstr-path-str" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        compare.generate_range_charts(output_dir=None, image_format="png", as_base64=False) -&gt; dict[str, Path | str]
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../formats/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Formats
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#data-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data Models
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Data Models">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#forcemoment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ForceMoment
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pointload" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PointLoad
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loadcase" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LoadCase
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#units" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Units
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loadset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LoadSet
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#loadset-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LoadSet Methods
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="LoadSet Methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#io" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        I/O
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="I/O">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#loadsetread_jsonfile_path-loadset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LoadSet.read_json(file_path) -&gt; LoadSet
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loadsetread_ansysfile_path-units-namenone-version1-loadset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LoadSet.read_ansys(file_path, units, name=None, version=1) -&gt; LoadSet
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loadsetto_jsonfile_pathnone-indent2-str" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        loadset.to_json(file_path=None, indent=2) -&gt; str
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loadsetto_ansysfolder_pathtemp-name_stemnone-excludenone-none" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        loadset.to_ansys(folder_path="temp", name_stem=None, exclude=None) -&gt; None
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loadsetgenerate_json_schemaoutput_filenone-dict" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LoadSet.generate_json_schema(output_file=None) -&gt; dict
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Processing
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Processing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#loadsetconvert_tounits-loadset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        loadset.convert_to(units) -&gt; LoadSet
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loadsetfactorby-loadset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        loadset.factor(by) -&gt; LoadSet
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loadsetenvelope-loadset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        loadset.envelope() -&gt; LoadSet
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Analysis
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Analysis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#loadsetget_point_extremesoutputnone-dict" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        loadset.get_point_extremes(output=None) -&gt; dict
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loadsetcompare_toother-loadsetcompare" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        loadset.compare_to(other) -&gt; LoadSetCompare
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#display" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Display
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Display">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#loadsetprint_headn5-none" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        loadset.print_head(n=5) -&gt; None
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loadsetprint_table-none" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        loadset.print_table() -&gt; None
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loadsetprint_extremes-none" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        loadset.print_extremes() -&gt; None
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loadsetprint_envelope-none" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        loadset.print_envelope() -&gt; None
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loadsetenvelope_to_markdownoutputnone-str" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        loadset.envelope_to_markdown(output=None) -&gt; str
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#loadsetcompare" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LoadSetCompare
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="LoadSetCompare">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#comparisonrow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ComparisonRow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Methods
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#compareto_dict-dict" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        compare.to_dict() -&gt; dict
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compareto_jsonindent2-str" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        compare.to_json(indent=2) -&gt; str
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comparenew_exceeds_old-bool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        compare.new_exceeds_old() -&gt; bool
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comparegenerate_comparison_reportoutput_dir-report_namecomparison_report-image_formatpng-indent2-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        compare.generate_comparison_report(output_dir, report_name="comparison_report", image_format="png", indent=2) -&gt; Path
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comparegenerate_range_chartsoutput_dirnone-image_formatpng-as_base64false-dictstr-path-str" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        compare.generate_range_charts(output_dir=None, image_format="png", as_base64=False) -&gt; dict[str, Path | str]
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="api-reference">API Reference<a class="headerlink" href="#api-reference" title="Permanent link">&para;</a></h1>
+<p>All public classes are importable from the top-level package:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ductile_loads</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n">ForceMoment</span><span class="p">,</span> <span class="n">PointLoad</span><span class="p">,</span> <span class="n">LoadCase</span><span class="p">,</span> <span class="n">Units</span><span class="p">,</span> <span class="n">LoadSet</span><span class="p">,</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n">ComparisonRow</span><span class="p">,</span> <span class="n">LoadSetCompare</span><span class="p">,</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="p">)</span>
+</code></pre></div>
+<hr />
+<h2 id="data-models">Data Models<a class="headerlink" href="#data-models" title="Permanent link">&para;</a></h2>
+<h3 id="forcemoment">ForceMoment<a class="headerlink" href="#forcemoment" title="Permanent link">&para;</a></h3>
+<p>Six-component force/moment vector at a point.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">ForceMoment</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    <span class="n">fx</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    <span class="n">fy</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    <span class="n">fz</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    <span class="n">mx</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    <span class="n">my</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>    <span class="n">mz</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+</code></pre></div>
+<p>All fields default to <code>0.0</code>.</p>
+<h3 id="pointload">PointLoad<a class="headerlink" href="#pointload" title="Permanent link">&para;</a></h3>
+<p>A named point with a force/moment vector.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">PointLoad</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    <span class="n">force_moment</span><span class="p">:</span> <span class="n">ForceMoment</span>
+</code></pre></div>
+<h3 id="loadcase">LoadCase<a class="headerlink" href="#loadcase" title="Permanent link">&para;</a></h3>
+<p>A named load case containing point loads.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">LoadCase</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    <span class="n">description</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    <span class="n">point_loads</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">PointLoad</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+</code></pre></div>
+<h3 id="units">Units<a class="headerlink" href="#units" title="Permanent link">&para;</a></h3>
+<p>Force and moment unit pair.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">Units</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    <span class="n">forces</span><span class="p">:</span> <span class="s2">&quot;N&quot;</span> <span class="o">|</span> <span class="s2">&quot;kN&quot;</span> <span class="o">|</span> <span class="s2">&quot;klbs&quot;</span> <span class="o">=</span> <span class="s2">&quot;N&quot;</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    <span class="n">moments</span><span class="p">:</span> <span class="s2">&quot;Nmm&quot;</span> <span class="o">|</span> <span class="s2">&quot;Nm&quot;</span> <span class="o">|</span> <span class="s2">&quot;kNm&quot;</span> <span class="o">|</span> <span class="s2">&quot;klbs.in&quot;</span> <span class="o">=</span> <span class="s2">&quot;Nm&quot;</span>
+</code></pre></div>
+<h3 id="loadset">LoadSet<a class="headerlink" href="#loadset" title="Permanent link">&para;</a></h3>
+<p>Top-level model: a versioned collection of load cases with units. This is the main class you interact with.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">LoadSet</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    <span class="n">description</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    <span class="n">version</span><span class="p">:</span> <span class="nb">int</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>    <span class="n">units</span><span class="p">:</span> <span class="n">Units</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>    <span class="n">loads_type</span><span class="p">:</span> <span class="s2">&quot;limit&quot;</span> <span class="o">|</span> <span class="s2">&quot;ultimate&quot;</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>    <span class="n">load_cases</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">LoadCase</span><span class="p">]</span>
+</code></pre></div>
+<hr />
+<h2 id="loadset-methods">LoadSet Methods<a class="headerlink" href="#loadset-methods" title="Permanent link">&para;</a></h2>
+<h3 id="io">I/O<a class="headerlink" href="#io" title="Permanent link">&para;</a></h3>
+<h4 id="loadsetread_jsonfile_path-loadset"><code>LoadSet.read_json(file_path) -&gt; LoadSet</code><a class="headerlink" href="#loadsetread_jsonfile_path-loadset" title="Permanent link">&para;</a></h4>
+<p>Class method. Read a LoadSet from a JSON file.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>file_path</code> — path to the JSON file</li>
+</ul>
+<p><strong>Returns:</strong> <code>LoadSet</code> instance</p>
+<p><strong>Raises:</strong> <code>FileNotFoundError</code>, <code>json.JSONDecodeError</code>, <code>ValueError</code></p>
+<hr />
+<h4 id="loadsetread_ansysfile_path-units-namenone-version1-loadset"><code>LoadSet.read_ansys(file_path, units, name=None, version=1) -&gt; LoadSet</code><a class="headerlink" href="#loadsetread_ansysfile_path-units-namenone-version1-loadset" title="Permanent link">&para;</a></h4>
+<p>Class method. Read a LoadSet from an ANSYS <code>.inp</code> file.</p>
+<p>Parses ANSYS APDL load files with <code>/TITLE</code>, <code>cmsel,s,pilot_*</code>, and <code>f,all,*</code> commands.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>file_path</code> — path to the <code>.inp</code> file</li>
+<li><code>units</code> — <code>Units</code> instance specifying force and moment units</li>
+<li><code>name</code> — optional name (defaults to filename stem)</li>
+<li><code>version</code> — version number (default: 1)</li>
+</ul>
+<p><strong>Returns:</strong> <code>LoadSet</code> with a single <code>LoadCase</code></p>
+<p><strong>Raises:</strong> <code>FileNotFoundError</code>, <code>ValueError</code></p>
+<hr />
+<h4 id="loadsetto_jsonfile_pathnone-indent2-str"><code>loadset.to_json(file_path=None, indent=2) -&gt; str</code><a class="headerlink" href="#loadsetto_jsonfile_pathnone-indent2-str" title="Permanent link">&para;</a></h4>
+<p>Write the LoadSet to a JSON file and/or return the JSON string.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>file_path</code> — optional output path. If <code>None</code>, only returns the string</li>
+<li><code>indent</code> — JSON indentation level (default: 2)</li>
+</ul>
+<p><strong>Returns:</strong> JSON string</p>
+<hr />
+<h4 id="loadsetto_ansysfolder_pathtemp-name_stemnone-excludenone-none"><code>loadset.to_ansys(folder_path="temp", name_stem=None, exclude=None) -&gt; None</code><a class="headerlink" href="#loadsetto_ansysfolder_pathtemp-name_stemnone-excludenone-none" title="Permanent link">&para;</a></h4>
+<p>Export the LoadSet to ANSYS <code>.inp</code> files (one per load case).</p>
+<p>Creates the output folder if needed and cleans any existing files in it.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>folder_path</code> — output directory (default: <code>"temp"</code>)</li>
+<li><code>name_stem</code> — optional prefix for filenames. If <code>None</code>, uses only load case names</li>
+<li><code>exclude</code> — list of point names to omit from export</li>
+</ul>
+<hr />
+<h4 id="loadsetgenerate_json_schemaoutput_filenone-dict"><code>LoadSet.generate_json_schema(output_file=None) -&gt; dict</code><a class="headerlink" href="#loadsetgenerate_json_schemaoutput_filenone-dict" title="Permanent link">&para;</a></h4>
+<p>Class method. Generate the JSON Schema for the LoadSet model.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>output_file</code> — optional path to write the schema file</li>
+</ul>
+<p><strong>Returns:</strong> JSON Schema as a dictionary</p>
+<hr />
+<h3 id="processing">Processing<a class="headerlink" href="#processing" title="Permanent link">&para;</a></h3>
+<h4 id="loadsetconvert_tounits-loadset"><code>loadset.convert_to(units) -&gt; LoadSet</code><a class="headerlink" href="#loadsetconvert_tounits-loadset" title="Permanent link">&para;</a></h4>
+<p>Convert all force and moment values to the target unit system.</p>
+<p>The force unit determines the paired moment unit automatically:</p>
+<table>
+<thead>
+<tr>
+<th>Force</th>
+<th>Moment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>"N"</code></td>
+<td><code>"Nm"</code></td>
+</tr>
+<tr>
+<td><code>"kN"</code></td>
+<td><code>"kNm"</code></td>
+</tr>
+<tr>
+<td><code>"klbs"</code></td>
+<td><code>"klbs.in"</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>units</code> — target force unit: <code>"N"</code>, <code>"kN"</code>, or <code>"klbs"</code></li>
+</ul>
+<p><strong>Returns:</strong> new <code>LoadSet</code> with converted values</p>
+<p><strong>Conversion factors:</strong> 1 klbs = 4448.22 N, 1 klbs.in = 112.98 Nm</p>
+<hr />
+<h4 id="loadsetfactorby-loadset"><code>loadset.factor(by) -&gt; LoadSet</code><a class="headerlink" href="#loadsetfactorby-loadset" title="Permanent link">&para;</a></h4>
+<p>Scale all force and moment values by a factor.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>by</code> — scale factor (float)</li>
+</ul>
+<p><strong>Returns:</strong> new <code>LoadSet</code> with scaled values</p>
+<hr />
+<h4 id="loadsetenvelope-loadset"><code>loadset.envelope() -&gt; LoadSet</code><a class="headerlink" href="#loadsetenvelope-loadset" title="Permanent link">&para;</a></h4>
+<p>Create an envelope LoadSet containing only load cases with extreme values.</p>
+<p>For each point and component, selects load cases with:</p>
+<ul>
+<li><strong>Maximum value</strong> — always included</li>
+<li><strong>Minimum value</strong> — only if negative</li>
+</ul>
+<p>Load cases appearing in multiple extremes are deduplicated.</p>
+<p><strong>Returns:</strong> new <code>LoadSet</code> with the reduced set of critical load cases</p>
+<p><strong>Raises:</strong> <code>ValueError</code> if the LoadSet has no load cases</p>
+<hr />
+<h3 id="analysis">Analysis<a class="headerlink" href="#analysis" title="Permanent link">&para;</a></h3>
+<h4 id="loadsetget_point_extremesoutputnone-dict"><code>loadset.get_point_extremes(output=None) -&gt; dict</code><a class="headerlink" href="#loadsetget_point_extremesoutputnone-dict" title="Permanent link">&para;</a></h4>
+<p>Get extreme values (max/min) for each point and component across all load cases.</p>
+<p>Components where both max and min are zero are filtered out.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>output</code> — optional file path to write the extremes as JSON</li>
+</ul>
+<p><strong>Returns:</strong> nested dictionary:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="p">{</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>    <span class="s2">&quot;point_name&quot;</span><span class="p">:</span> <span class="p">{</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>        <span class="s2">&quot;fx&quot;</span><span class="p">:</span> <span class="p">{</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>            <span class="s2">&quot;max&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="mf">100.0</span><span class="p">,</span> <span class="s2">&quot;loadcase&quot;</span><span class="p">:</span> <span class="s2">&quot;Case_A&quot;</span><span class="p">},</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>            <span class="s2">&quot;min&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mf">20.0</span><span class="p">,</span> <span class="s2">&quot;loadcase&quot;</span><span class="p">:</span> <span class="s2">&quot;Case_C&quot;</span><span class="p">}</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>        <span class="p">},</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>        <span class="o">...</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>    <span class="p">}</span>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="p">}</span>
+</code></pre></div>
+<hr />
+<h4 id="loadsetcompare_toother-loadsetcompare"><code>loadset.compare_to(other) -&gt; LoadSetCompare</code><a class="headerlink" href="#loadsetcompare_toother-loadsetcompare" title="Permanent link">&para;</a></h4>
+<p>Compare this LoadSet's envelope to another LoadSet's envelope.</p>
+<p>Auto-converts units if they differ (converts <code>other</code> to match <code>self</code>).</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>other</code> — the <code>LoadSet</code> to compare against</li>
+</ul>
+<p><strong>Returns:</strong> <code>LoadSetCompare</code> with detailed comparison results</p>
+<hr />
+<h3 id="display">Display<a class="headerlink" href="#display" title="Permanent link">&para;</a></h3>
+<p>These methods require the <code>[display]</code> or <code>[all]</code> extra (<code>rich</code>).</p>
+<h4 id="loadsetprint_headn5-none"><code>loadset.print_head(n=5) -&gt; None</code><a class="headerlink" href="#loadsetprint_headn5-none" title="Permanent link">&para;</a></h4>
+<p>Print a preview of the first <code>n</code> load cases as a formatted Rich table.</p>
+<h4 id="loadsetprint_table-none"><code>loadset.print_table() -&gt; None</code><a class="headerlink" href="#loadsetprint_table-none" title="Permanent link">&para;</a></h4>
+<p>Print all load cases as a formatted Rich table.</p>
+<h4 id="loadsetprint_extremes-none"><code>loadset.print_extremes() -&gt; None</code><a class="headerlink" href="#loadsetprint_extremes-none" title="Permanent link">&para;</a></h4>
+<p>Print extreme values per point and component as a Rich table.</p>
+<h4 id="loadsetprint_envelope-none"><code>loadset.print_envelope() -&gt; None</code><a class="headerlink" href="#loadsetprint_envelope-none" title="Permanent link">&para;</a></h4>
+<p>Print envelope summary in wide format (one max/min row per point).</p>
+<h4 id="loadsetenvelope_to_markdownoutputnone-str"><code>loadset.envelope_to_markdown(output=None) -&gt; str</code><a class="headerlink" href="#loadsetenvelope_to_markdownoutputnone-str" title="Permanent link">&para;</a></h4>
+<p>Return the envelope summary as a Markdown table. Optionally writes to a file.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>output</code> — optional file path to write the Markdown</li>
+</ul>
+<p><strong>Returns:</strong> Markdown string</p>
+<hr />
+<h2 id="loadsetcompare">LoadSetCompare<a class="headerlink" href="#loadsetcompare" title="Permanent link">&para;</a></h2>
+<p>Returned by <code>loadset.compare_to(other)</code>. Contains the comparison results between two LoadSets.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">LoadSetCompare</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>    <span class="n">loadset1_metadata</span><span class="p">:</span> <span class="nb">dict</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>    <span class="n">loadset2_metadata</span><span class="p">:</span> <span class="nb">dict</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>    <span class="n">comparison_rows</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">ComparisonRow</span><span class="p">]</span>
+</code></pre></div>
+<h3 id="comparisonrow">ComparisonRow<a class="headerlink" href="#comparisonrow" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">ComparisonRow</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>    <span class="n">point_name</span><span class="p">:</span> <span class="nb">str</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>    <span class="n">component</span><span class="p">:</span> <span class="s2">&quot;fx&quot;</span> <span class="o">|</span> <span class="s2">&quot;fy&quot;</span> <span class="o">|</span> <span class="s2">&quot;fz&quot;</span> <span class="o">|</span> <span class="s2">&quot;mx&quot;</span> <span class="o">|</span> <span class="s2">&quot;my&quot;</span> <span class="o">|</span> <span class="s2">&quot;mz&quot;</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>    <span class="nb">type</span><span class="p">:</span> <span class="s2">&quot;max&quot;</span> <span class="o">|</span> <span class="s2">&quot;min&quot;</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>    <span class="n">loadset1_value</span><span class="p">:</span> <span class="nb">float</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>    <span class="n">loadset2_value</span><span class="p">:</span> <span class="nb">float</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>    <span class="n">loadset1_loadcase</span><span class="p">:</span> <span class="nb">str</span>
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>    <span class="n">loadset2_loadcase</span><span class="p">:</span> <span class="nb">str</span>
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>    <span class="n">abs_diff</span><span class="p">:</span> <span class="nb">float</span>
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>    <span class="n">pct_diff</span><span class="p">:</span> <span class="nb">float</span>  <span class="c1"># percentage relative to loadset1</span>
+</code></pre></div>
+<h3 id="methods">Methods<a class="headerlink" href="#methods" title="Permanent link">&para;</a></h3>
+<h4 id="compareto_dict-dict"><code>compare.to_dict() -&gt; dict</code><a class="headerlink" href="#compareto_dict-dict" title="Permanent link">&para;</a></h4>
+<p>Convert the comparison to a dictionary.</p>
+<hr />
+<h4 id="compareto_jsonindent2-str"><code>compare.to_json(indent=2) -&gt; str</code><a class="headerlink" href="#compareto_jsonindent2-str" title="Permanent link">&para;</a></h4>
+<p>Export the comparison as a JSON string.</p>
+<hr />
+<h4 id="comparenew_exceeds_old-bool"><code>compare.new_exceeds_old() -&gt; bool</code><a class="headerlink" href="#comparenew_exceeds_old-bool" title="Permanent link">&para;</a></h4>
+<p>Check if <code>loadset2</code> (new) exceeds <code>loadset1</code> (old) in any comparison:</p>
+<ul>
+<li>For <code>"max"</code> type: <code>loadset2_value &gt; loadset1_value</code></li>
+<li>For <code>"min"</code> type: <code>loadset2_value &lt; loadset1_value</code> (more negative)</li>
+</ul>
+<p>Returns <code>True</code> if new loads are more critical in at least one comparison.</p>
+<hr />
+<h4 id="comparegenerate_comparison_reportoutput_dir-report_namecomparison_report-image_formatpng-indent2-path"><code>compare.generate_comparison_report(output_dir, report_name="comparison_report", image_format="png", indent=2) -&gt; Path</code><a class="headerlink" href="#comparegenerate_comparison_reportoutput_dir-report_namecomparison_report-image_formatpng-indent2-path" title="Permanent link">&para;</a></h4>
+<p>Generate a complete comparison report with JSON data and chart images.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>output_dir</code> — directory to save report files</li>
+<li><code>report_name</code> — base name for report files (default: <code>"comparison_report"</code>)</li>
+<li><code>image_format</code> — <code>"png"</code> or <code>"svg"</code></li>
+<li><code>indent</code> — JSON indentation</li>
+</ul>
+<p><strong>Returns:</strong> path to the generated JSON report file</p>
+<p><strong>Requires:</strong> <code>matplotlib</code> (<code>[charts]</code> or <code>[all]</code> extra)</p>
+<hr />
+<h4 id="comparegenerate_range_chartsoutput_dirnone-image_formatpng-as_base64false-dictstr-path-str"><code>compare.generate_range_charts(output_dir=None, image_format="png", as_base64=False) -&gt; dict[str, Path | str]</code><a class="headerlink" href="#comparegenerate_range_chartsoutput_dirnone-image_formatpng-as_base64false-dictstr-path-str" title="Permanent link">&para;</a></h4>
+<p>Generate range bar charts comparing LoadSets for each point.</p>
+<p>Creates dual-subplot figures (forces vs moments) with min-to-max range bars.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>output_dir</code> — directory to save images (required if <code>as_base64=False</code>)</li>
+<li><code>image_format</code> — <code>"png"</code> or <code>"svg"</code></li>
+<li><code>as_base64</code> — if <code>True</code>, return base64-encoded strings instead of saving files</li>
+</ul>
+<p><strong>Returns:</strong> mapping of point names to file paths (or base64 strings)</p>
+<p><strong>Requires:</strong> <code>matplotlib</code> (<code>[charts]</code> or <code>[all]</code> extra)</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["content.code.copy", "navigation.sections"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

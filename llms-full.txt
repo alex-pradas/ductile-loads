@@ -1,0 +1,822 @@
+# ductile-loads
+
+> Loads processing tool for structural analysis
+
+# Documentation
+
+# ductile-loads
+
+Certified loads processing tool for structural analysis, approved under the Design Quality Management System (DQMS).
+
+`ductile-loads` provides a complete pipeline for processing structural load data: reading load deliveries, converting units, downselecting critical load cases via envelope analysis, exporting to ANSYS, and comparing load sets across revisions.
+
+This is a sample tool as part of the DUCTILE agentic orchestration paper. See the [DUCTILE repository](https://github.com/alex-pradas/DUCTILE) or the paper (DOI: TBD) for context.
+
+## Installation
+
+```
+uv add ductile-loads
+```
+
+## Quick start
+
+```
+from ductile_loads import LoadSet
+
+# Load load delivery
+ls = LoadSet.read_json("supplier_forces.json")
+
+# Convert to SI units
+ls = ls.convert_to("N")
+
+# Downselect to critical load cases
+ls_env = ls.envelope()
+
+# Export to ANSYS
+ls_env.to_ansys(folder_path="design_loads", name_stem="design_load")
+
+# Get envelope extremes
+extremes = ls_env.get_point_extremes(output="envelope_extremes.json")
+```
+
+## Key features
+
+- **Pydantic data models** — validated, serializable load data structures
+- **Unit conversion** — N/kN/klbs with automatic moment unit pairing
+- **Envelope analysis** — downselect to load cases containing extreme values
+- **ANSYS export** — generate `.inp` files with force commands per load case
+- **Load comparison** — compare two load deliveries with charts and reports
+- **Rich display** — formatted tables for terminal inspection (requires `[display]`)
+- **Markdown output** — envelope summaries as Markdown tables
+
+## License
+
+MIT
+
+# Getting Started
+
+## Installation
+
+### With uv
+
+```
+uv add ductile-loads
+```
+
+### Optional dependencies
+
+`ductile-loads` has optional extras for display and charting:
+
+| Extra     | Packages             | Use case                  |
+| --------- | -------------------- | ------------------------- |
+| `display` | `rich`               | Formatted terminal tables |
+| `charts`  | `matplotlib`         | Comparison range charts   |
+| `all`     | `rich`, `matplotlib` | Everything                |
+
+```
+uv add ductile-loads[all]
+```
+
+### With uv (inline script)
+
+For single-file scripts, use [PEP 723](https://peps.python.org/pep-0723/) inline metadata:
+
+```
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.13"
+# dependencies = ["ductile-loads[all]"]
+# ///
+
+from ductile_loads import LoadSet
+
+ls = LoadSet.read_json("supplier_forces.json")
+ls.print_head()
+```
+
+Run with:
+
+```
+uv run my_script.py
+```
+
+`uv` will automatically install `ductile-loads` and its dependencies in an isolated environment.
+
+## Your first script
+
+Here is a minimal processing script that loads an load delivery, converts units, creates an envelope, and exports to ANSYS:
+
+```
+from ductile_loads import LoadSet
+
+# 1. Read the load delivery
+loadset = LoadSet.read_json("supplier_forces.json")
+
+# 2. Convert to target units (N and Nm)
+loadset_si = loadset.convert_to("N")
+
+# 3. Create envelope (keeps only critical load cases)
+envelope = loadset_si.envelope()
+
+# 4. Export to ANSYS .inp files
+envelope.to_ansys(
+    folder_path="design_loads",
+    name_stem="design_load",
+    exclude=["damper"],  # skip damper points
+)
+
+# 5. Save envelope summary
+print(envelope.envelope_to_markdown(output="envelope.md"))
+
+# 6. Save extremes as JSON
+envelope.get_point_extremes(output="envelope_extremes.json")
+```
+
+### What each step does
+
+1. **`read_json`** parses the JSON file and validates it against the `LoadSet` schema
+1. **`convert_to("N")`** converts all force/moment values to SI units (N and Nm), returning a new `LoadSet`
+1. **`envelope()`** identifies load cases with extreme values (max, and min if negative) across all points and components, returning a reduced `LoadSet`
+1. **`to_ansys`** writes one `.inp` file per load case with ANSYS `F` commands
+1. **`envelope_to_markdown`** produces a Markdown table summarizing the envelope bounds
+1. **`get_point_extremes`** extracts per-point, per-component max/min values with load case traceability
+
+## Supported units
+
+The `convert_to` method accepts a force unit and automatically pairs it with the corresponding moment unit:
+
+| Force unit | Moment unit | System    |
+| ---------- | ----------- | --------- |
+| `"N"`      | `"Nm"`      | SI        |
+| `"kN"`     | `"kNm"`     | SI (kilo) |
+| `"klbs"`   | `"klbs.in"` | Imperial  |
+
+Conversion factors: 1 klbs = 4448.22 N, 1 klbs.in = 112.98 Nm.
+
+# API Reference
+
+All public classes are importable from the top-level package:
+
+```
+from ductile_loads import (
+    ForceMoment, PointLoad, LoadCase, Units, LoadSet,
+    ComparisonRow, LoadSetCompare,
+)
+```
+
+______________________________________________________________________
+
+## Data Models
+
+### ForceMoment
+
+Six-component force/moment vector at a point.
+
+```
+class ForceMoment(BaseModel):
+    fx: float = 0.0
+    fy: float = 0.0
+    fz: float = 0.0
+    mx: float = 0.0
+    my: float = 0.0
+    mz: float = 0.0
+```
+
+All fields default to `0.0`.
+
+### PointLoad
+
+A named point with a force/moment vector.
+
+```
+class PointLoad(BaseModel):
+    name: str | None = None
+    force_moment: ForceMoment
+```
+
+### LoadCase
+
+A named load case containing point loads.
+
+```
+class LoadCase(BaseModel):
+    name: str | None = None
+    description: str | None = None
+    point_loads: list[PointLoad] = []
+```
+
+### Units
+
+Force and moment unit pair.
+
+```
+class Units(BaseModel):
+    forces: "N" | "kN" | "klbs" = "N"
+    moments: "Nmm" | "Nm" | "kNm" | "klbs.in" = "Nm"
+```
+
+### LoadSet
+
+Top-level model: a versioned collection of load cases with units. This is the main class you interact with.
+
+```
+class LoadSet(BaseModel):
+    name: str | None
+    description: str | None = None
+    version: int
+    units: Units
+    loads_type: "limit" | "ultimate" | None = None
+    load_cases: list[LoadCase]
+```
+
+______________________________________________________________________
+
+## LoadSet Methods
+
+### I/O
+
+#### `LoadSet.read_json(file_path) -> LoadSet`
+
+Class method. Read a LoadSet from a JSON file.
+
+**Parameters:**
+
+- `file_path` — path to the JSON file
+
+**Returns:** `LoadSet` instance
+
+**Raises:** `FileNotFoundError`, `json.JSONDecodeError`, `ValueError`
+
+______________________________________________________________________
+
+#### `LoadSet.read_ansys(file_path, units, name=None, version=1) -> LoadSet`
+
+Class method. Read a LoadSet from an ANSYS `.inp` file.
+
+Parses ANSYS APDL load files with `/TITLE`, `cmsel,s,pilot_*`, and `f,all,*` commands.
+
+**Parameters:**
+
+- `file_path` — path to the `.inp` file
+- `units` — `Units` instance specifying force and moment units
+- `name` — optional name (defaults to filename stem)
+- `version` — version number (default: 1)
+
+**Returns:** `LoadSet` with a single `LoadCase`
+
+**Raises:** `FileNotFoundError`, `ValueError`
+
+______________________________________________________________________
+
+#### `loadset.to_json(file_path=None, indent=2) -> str`
+
+Write the LoadSet to a JSON file and/or return the JSON string.
+
+**Parameters:**
+
+- `file_path` — optional output path. If `None`, only returns the string
+- `indent` — JSON indentation level (default: 2)
+
+**Returns:** JSON string
+
+______________________________________________________________________
+
+#### `loadset.to_ansys(folder_path="temp", name_stem=None, exclude=None) -> None`
+
+Export the LoadSet to ANSYS `.inp` files (one per load case).
+
+Creates the output folder if needed and cleans any existing files in it.
+
+**Parameters:**
+
+- `folder_path` — output directory (default: `"temp"`)
+- `name_stem` — optional prefix for filenames. If `None`, uses only load case names
+- `exclude` — list of point names to omit from export
+
+______________________________________________________________________
+
+#### `LoadSet.generate_json_schema(output_file=None) -> dict`
+
+Class method. Generate the JSON Schema for the LoadSet model.
+
+**Parameters:**
+
+- `output_file` — optional path to write the schema file
+
+**Returns:** JSON Schema as a dictionary
+
+______________________________________________________________________
+
+### Processing
+
+#### `loadset.convert_to(units) -> LoadSet`
+
+Convert all force and moment values to the target unit system.
+
+The force unit determines the paired moment unit automatically:
+
+| Force    | Moment      |
+| -------- | ----------- |
+| `"N"`    | `"Nm"`      |
+| `"kN"`   | `"kNm"`     |
+| `"klbs"` | `"klbs.in"` |
+
+**Parameters:**
+
+- `units` — target force unit: `"N"`, `"kN"`, or `"klbs"`
+
+**Returns:** new `LoadSet` with converted values
+
+**Conversion factors:** 1 klbs = 4448.22 N, 1 klbs.in = 112.98 Nm
+
+______________________________________________________________________
+
+#### `loadset.factor(by) -> LoadSet`
+
+Scale all force and moment values by a factor.
+
+**Parameters:**
+
+- `by` — scale factor (float)
+
+**Returns:** new `LoadSet` with scaled values
+
+______________________________________________________________________
+
+#### `loadset.envelope() -> LoadSet`
+
+Create an envelope LoadSet containing only load cases with extreme values.
+
+For each point and component, selects load cases with:
+
+- **Maximum value** — always included
+- **Minimum value** — only if negative
+
+Load cases appearing in multiple extremes are deduplicated.
+
+**Returns:** new `LoadSet` with the reduced set of critical load cases
+
+**Raises:** `ValueError` if the LoadSet has no load cases
+
+______________________________________________________________________
+
+### Analysis
+
+#### `loadset.get_point_extremes(output=None) -> dict`
+
+Get extreme values (max/min) for each point and component across all load cases.
+
+Components where both max and min are zero are filtered out.
+
+**Parameters:**
+
+- `output` — optional file path to write the extremes as JSON
+
+**Returns:** nested dictionary:
+
+```
+{
+    "point_name": {
+        "fx": {
+            "max": {"value": 100.0, "loadcase": "Case_A"},
+            "min": {"value": -20.0, "loadcase": "Case_C"}
+        },
+        ...
+    }
+}
+```
+
+______________________________________________________________________
+
+#### `loadset.compare_to(other) -> LoadSetCompare`
+
+Compare this LoadSet's envelope to another LoadSet's envelope.
+
+Auto-converts units if they differ (converts `other` to match `self`).
+
+**Parameters:**
+
+- `other` — the `LoadSet` to compare against
+
+**Returns:** `LoadSetCompare` with detailed comparison results
+
+______________________________________________________________________
+
+### Display
+
+These methods require the `[display]` or `[all]` extra (`rich`).
+
+#### `loadset.print_head(n=5) -> None`
+
+Print a preview of the first `n` load cases as a formatted Rich table.
+
+#### `loadset.print_table() -> None`
+
+Print all load cases as a formatted Rich table.
+
+#### `loadset.print_extremes() -> None`
+
+Print extreme values per point and component as a Rich table.
+
+#### `loadset.print_envelope() -> None`
+
+Print envelope summary in wide format (one max/min row per point).
+
+#### `loadset.envelope_to_markdown(output=None) -> str`
+
+Return the envelope summary as a Markdown table. Optionally writes to a file.
+
+**Parameters:**
+
+- `output` — optional file path to write the Markdown
+
+**Returns:** Markdown string
+
+______________________________________________________________________
+
+## LoadSetCompare
+
+Returned by `loadset.compare_to(other)`. Contains the comparison results between two LoadSets.
+
+```
+class LoadSetCompare(BaseModel):
+    loadset1_metadata: dict
+    loadset2_metadata: dict
+    comparison_rows: list[ComparisonRow]
+```
+
+### ComparisonRow
+
+```
+class ComparisonRow(BaseModel):
+    point_name: str
+    component: "fx" | "fy" | "fz" | "mx" | "my" | "mz"
+    type: "max" | "min"
+    loadset1_value: float
+    loadset2_value: float
+    loadset1_loadcase: str
+    loadset2_loadcase: str
+    abs_diff: float
+    pct_diff: float  # percentage relative to loadset1
+```
+
+### Methods
+
+#### `compare.to_dict() -> dict`
+
+Convert the comparison to a dictionary.
+
+______________________________________________________________________
+
+#### `compare.to_json(indent=2) -> str`
+
+Export the comparison as a JSON string.
+
+______________________________________________________________________
+
+#### `compare.new_exceeds_old() -> bool`
+
+Check if `loadset2` (new) exceeds `loadset1` (old) in any comparison:
+
+- For `"max"` type: `loadset2_value > loadset1_value`
+- For `"min"` type: `loadset2_value < loadset1_value` (more negative)
+
+Returns `True` if new loads are more critical in at least one comparison.
+
+______________________________________________________________________
+
+#### `compare.generate_comparison_report(output_dir, report_name="comparison_report", image_format="png", indent=2) -> Path`
+
+Generate a complete comparison report with JSON data and chart images.
+
+**Parameters:**
+
+- `output_dir` — directory to save report files
+- `report_name` — base name for report files (default: `"comparison_report"`)
+- `image_format` — `"png"` or `"svg"`
+- `indent` — JSON indentation
+
+**Returns:** path to the generated JSON report file
+
+**Requires:** `matplotlib` (`[charts]` or `[all]` extra)
+
+______________________________________________________________________
+
+#### `compare.generate_range_charts(output_dir=None, image_format="png", as_base64=False) -> dict[str, Path | str]`
+
+Generate range bar charts comparing LoadSets for each point.
+
+Creates dual-subplot figures (forces vs moments) with min-to-max range bars.
+
+**Parameters:**
+
+- `output_dir` — directory to save images (required if `as_base64=False`)
+- `image_format` — `"png"` or `"svg"`
+- `as_base64` — if `True`, return base64-encoded strings instead of saving files
+
+**Returns:** mapping of point names to file paths (or base64 strings)
+
+**Requires:** `matplotlib` (`[charts]` or `[all]` extra)
+
+# Input/Output Formats
+
+## JSON input
+
+`LoadSet.read_json()` expects a JSON file matching the Pydantic schema:
+
+```
+{
+  "name": "Supplier Forces v1",
+  "version": 1,
+  "units": {"forces": "N", "moments": "Nm"},
+  "loads_type": "limit",
+  "load_cases": [
+    {
+      "name": "Case_A",
+      "description": "Full braking at 120 km/h",
+      "point_loads": [
+        {
+          "name": "left_mount",
+          "force_moment": {
+            "fx": 100.0,
+            "fy": -50.0,
+            "fz": 0.0,
+            "mx": 0.0,
+            "my": 0.0,
+            "mz": 0.0
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+
+### Required fields
+
+- `name` — load set identifier (string or null)
+- `version` — integer version number
+- `units` — object with `forces` and `moments` keys
+- `load_cases` — array of load case objects
+
+### Optional fields
+
+- `description` — free-text description
+- `loads_type` — `"limit"` or `"ultimate"` (or null)
+
+You can generate the full JSON Schema programmatically:
+
+```
+from ductile_loads import LoadSet
+
+schema = LoadSet.generate_json_schema(output_file="loadset_schema.json")
+```
+
+## ANSYS output (.inp)
+
+`to_ansys()` generates one `.inp` file per load case. Each file contains ANSYS APDL commands:
+
+```
+/TITLE,Case_A
+nsel,u,,,all
+
+cmsel,s,pilot_left_mount
+f,all,fx,1.000e+02
+f,all,fy,-5.000e+01
+nsel,u,,,all
+
+
+alls
+```
+
+### Format details
+
+- `/TITLE,{loadcase_name}` — sets the load case name
+- `cmsel,s,pilot_{point_name}` — selects the pilot node for a point
+- `f,all,{component},{value}` — applies a force or moment component
+- Only non-zero components are written
+- Component order: fx, fy, mx, my, mz, fz
+- Point names are automatically prefixed with `pilot_`
+- Values are formatted in scientific notation (3 decimal places)
+
+### Reading ANSYS files
+
+To read an existing `.inp` file back into a `LoadSet`:
+
+```
+from ductile_loads import LoadSet, Units
+
+ls = LoadSet.read_ansys(
+    "design_load_01.inp",
+    units=Units(forces="N", moments="Nm"),
+    name="Imported loads",
+)
+```
+
+## Markdown output
+
+`envelope_to_markdown()` generates a Markdown table:
+
+```
+## Supplier Forces v1 — Envelope Summary
+
+Version: 1 | Units: N, Nm
+
+| Point | Type | FX | FY | FZ | MX | MY | MZ |
+|-------|------|-------:|-------:|-------:|-------:|-------:|-------:|
+| left_mount | max | 100.0 | 0.000 | 50.0 | 0.000 | 0.000 | 0.000 |
+| | min | -20.0 | -50.0 | 0.000 | 0.000 | 0.000 | 0.000 |
+
+Points: 1 | From 5 load cases
+```
+
+## JSON extremes output
+
+`get_point_extremes()` returns (and optionally writes) a nested dictionary:
+
+```
+{
+  "left_mount": {
+    "fx": {
+      "max": {"value": 100.0, "loadcase": "Case_A"},
+      "min": {"value": -20.0, "loadcase": "Case_C"}
+    },
+    "fy": {
+      "max": {"value": 0.0, "loadcase": "Case_A"},
+      "min": {"value": -50.0, "loadcase": "Case_A"}
+    }
+  }
+}
+```
+
+Components where both max and min are zero are filtered out.
+
+# Examples
+
+## Basic workflow
+
+A complete processing pipeline from load delivery to ANSYS export:
+
+```
+from ductile_loads import LoadSet
+
+# Load and convert
+ls = LoadSet.read_json("supplier_forces.json")
+ls_si = ls.convert_to("N")
+
+# Envelope and export
+envelope = ls_si.envelope()
+envelope.to_ansys(folder_path="design_loads", name_stem="design_load")
+
+# Reports
+print(envelope.envelope_to_markdown(output="envelope.md"))
+envelope.get_point_extremes(output="envelope_extremes.json")
+```
+
+## Applying a safety factor
+
+Scale all loads by a factor before exporting:
+
+```
+from ductile_loads import LoadSet
+
+ls = LoadSet.read_json("supplier_forces.json")
+ls_si = ls.convert_to("N")
+
+# Apply 1.5x ultimate factor
+ls_ultimate = ls_si.factor(1.5)
+
+ls_ultimate.to_ansys(folder_path="ultimate_loads", name_stem="ultimate_load")
+```
+
+## Comparing two load deliveries
+
+Compare a new delivery against a previous one:
+
+```
+from ductile_loads import LoadSet
+
+# Load both versions
+ls_old = LoadSet.read_json("chassis_loads_r1.json")
+ls_new = LoadSet.read_json("chassis_loads_r2.json")
+
+# Convert to same units
+ls_old_si = ls_old.convert_to("N")
+ls_new_si = ls_new.convert_to("N")
+
+# Create envelopes
+env_old = ls_old_si.envelope()
+env_new = ls_new_si.envelope()
+
+# Compare (auto-converts units if needed)
+comparison = env_old.compare_to(env_new)
+
+# Check if new loads exceed old envelope in any component
+if comparison.new_exceeds_old():
+    print("New loads exceed old envelope in at least one component")
+else:
+    print("Old loads fully envelope the new delivery")
+
+# Generate full report with charts
+report_path = comparison.generate_comparison_report("reports/")
+print(f"Report saved to: {report_path}")
+```
+
+## Reading ANSYS files
+
+Read an existing `.inp` file back into a `LoadSet`:
+
+```
+from ductile_loads import LoadSet, Units
+
+ls = LoadSet.read_ansys(
+    "design_load_07.inp",
+    units=Units(forces="N", moments="Nm"),
+    name="Imported from ANSYS",
+    version=1,
+)
+
+ls.print_head()
+```
+
+## Excluding points from ANSYS export
+
+Skip specific points (e.g., damper points) when exporting:
+
+```
+from ductile_loads import LoadSet
+
+ls = LoadSet.read_json("supplier_forces.json").convert_to("N").envelope()
+
+ls.to_ansys(
+    folder_path="design_loads",
+    name_stem="design_load",
+    exclude=["damper", "damper_upper"],
+)
+```
+
+## Generating the JSON Schema
+
+Export the `LoadSet` JSON Schema for validation or documentation:
+
+```
+from ductile_loads import LoadSet
+
+schema = LoadSet.generate_json_schema(output_file="loadset_schema.json")
+```
+
+## Inspecting data
+
+Use the display methods to inspect your data in the terminal (requires `[display]` extra):
+
+```
+from ductile_loads import LoadSet
+
+ls = LoadSet.read_json("supplier_forces.json")
+
+# Preview first 5 load cases
+ls.print_head()
+
+# All load cases
+ls.print_table()
+
+# Envelope bounds
+ls.print_envelope()
+
+# Detailed extremes
+ls.print_extremes()
+```
+
+## Inline script template
+
+A complete single-file script using `uv`:
+
+```
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.13"
+# dependencies = ["ductile-loads[all]"]
+# ///
+
+from ductile_loads import LoadSet
+
+# Load and process
+ls = LoadSet.read_json("supplier_forces.json")
+ls_si = ls.convert_to("N")
+envelope = ls_si.envelope()
+
+# Rename load cases for clean filenames
+for lc in envelope.load_cases:
+    lc.name = (lc.name or "unnamed").split("_")[-1]
+
+# Export
+envelope.to_ansys(folder_path="design_loads", name_stem="design_load", exclude=["damper"])
+print(envelope.envelope_to_markdown(output="envelope.md"))
+envelope.get_point_extremes(output="envelope_extremes.json")
+```
+
+Run with:
+
+```
+uv run processing.py
+```

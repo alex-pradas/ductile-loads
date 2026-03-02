@@ -1,0 +1,18 @@
+[project]
+name = "ductile-loads"
+version = "1.0.0"
+description = "Loads processing tool for structural analysis — certified under DQMS"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.13"
+authors = [{ name = "Alex Pradas" }]
+dependencies = ["pydantic"]
+
+[project.optional-dependencies]
+display = ["rich"]
+charts = ["matplotlib"]
+all = ["rich", "matplotlib"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

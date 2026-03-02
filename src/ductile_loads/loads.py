@@ -68,32 +68,29 @@ class LoadSetCompare(BaseModel):
 
     def new_exceeds_old(self) -> bool:
         """
-        Check if loadset2 (new) exceeds loadset1 (old) envelope in every component comparison.
+        Check if loadset2 (new) exceeds loadset1 (old) envelope in any component comparison.
 
-        For the new loads to be considered more critical than the old loads, every single
-        component comparison must show that loadset2 exceeds loadset1's bounds:
+        Returns True if at least one component comparison shows that loadset2 exceeds
+        loadset1's bounds:
         - For "max" type: loadset2_value > loadset1_value (higher maximum)
         - For "min" type: loadset2_value < loadset1_value (lower minimum, more negative)
 
         Returns:
-            bool: True if new loads should be considered for analysis (loadset2 exceeds 
-                  loadset1 envelope in all comparisons), False if previous loads are more 
-                  critical (loadset2 is enveloped by loadset1 in any comparison)
+            bool: True if new loads exceed old envelope in at least one comparison,
+                  False if old loads fully envelope the new delivery
         """
         if not self.comparison_rows:
             return False
-        
+
         for row in self.comparison_rows:
             if row.type == "max":
-                # For maximum values, loadset2 must be greater than loadset1
-                if row.loadset2_value <= row.loadset1_value:
-                    return False
+                if row.loadset2_value > row.loadset1_value:
+                    return True
             elif row.type == "min":
-                # For minimum values, loadset2 must be less than loadset1 (more negative)
-                if row.loadset2_value >= row.loadset1_value:
-                    return False
-        
-        return True
+                if row.loadset2_value < row.loadset1_value:
+                    return True
+
+        return False
 
     def generate_comparison_report(
         self,

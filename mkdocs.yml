@@ -1,0 +1,42 @@
+site_name: ductile-loads
+site_description: Loads processing tool for structural analysis
+site_url: https://alex-pradas.github.io/ductile-loads
+repo_url: https://github.com/alex-pradas/ductile-loads
+repo_name: alex-pradas/ductile-loads
+
+theme:
+  name: material
+  palette:
+    primary: teal
+  features:
+    - content.code.copy
+    - navigation.sections
+
+nav:
+  - Home: index.md
+  - Getting Started: getting-started.md
+  - API Reference: api-reference.md
+  - Formats: formats.md
+  - Examples: examples.md
+
+plugins:
+  - search
+  - llmstxt:
+      full_output: llms-full.txt
+      sections:
+        Documentation:
+          - index.md: Project overview and quick start
+          - getting-started.md: Installation and first script
+          - api-reference.md: Full API reference for all classes and methods
+          - formats.md: JSON input, ANSYS output, and Markdown output formats
+          - examples.md: Usage examples for common workflows
+
+markdown_extensions:
+  - admonition
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - toc:
+      permalink: true

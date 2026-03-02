@@ -1,6 +1,6 @@
 [project]
 name = "ductile-loads"
-version = "1.0.0"
+version = "1.1.0"
 description = "Loads processing tool for structural analysis — certified under DQMS"
 readme = "README.md"
 license = "MIT"
@@ -12,6 +12,7 @@ dependencies = ["pydantic"]
 display = ["rich"]
 charts = ["matplotlib"]
 all = ["rich", "matplotlib"]
+docs = ["mkdocs-material", "mkdocs<2", "mkdocs-llmstxt"]
 
 [build-system]
 requires = ["hatchling"]

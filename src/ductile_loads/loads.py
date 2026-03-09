@@ -10,6 +10,25 @@ ForceUnit = Literal["N", "kN", "klbs"]
 MomentUnit = Literal["Nmm", "Nm", "kNm", "klbs.in"]
 
 
+def _sanitize_filename(name: str) -> str:
+    """
+    Sanitize a string to be safe for use as a filename.
+
+    Args:
+        name: Original name
+
+    Returns:
+        str: Sanitized name safe for filenames
+    """
+    # Replace spaces, special characters with underscores
+    sanitized = re.sub(r"[^\w\-_]", "_", name)
+    # Remove multiple consecutive underscores
+    sanitized = re.sub(r"_+", "_", sanitized)
+    # Remove leading/trailing underscores
+    sanitized = sanitized.strip("_")
+    return sanitized
+
+
 class ComparisonRow(BaseModel):
     """
     ComparisonRow represents one row in a LoadSet comparison table.
@@ -334,7 +353,7 @@ class LoadSetCompare(BaseModel):
                 assert (
                     output_path is not None
                 )  # This should never be None when as_base64=False
-                safe_point_name = self._sanitize_filename(point_name)
+                safe_point_name = _sanitize_filename(point_name)
                 filename = f"{safe_point_name}_ranges.{image_format}"
                 file_path = output_path / filename
 
@@ -527,25 +546,6 @@ class LoadSetCompare(BaseModel):
                 padding = y_range * 0.1
                 ax.set_ylim(y_min - padding, y_max + padding)
 
-    def _sanitize_filename(self, name: str) -> str:
-        """
-        Sanitize a string to be safe for use as a filename.
-
-        Args:
-            name: Original name
-
-        Returns:
-            str: Sanitized name safe for filenames
-        """
-        import re
-
-        # Replace spaces, special characters with underscores
-        sanitized = re.sub(r"[^\w\-_]", "_", name)
-        # Remove multiple consecutive underscores
-        sanitized = re.sub(r"_+", "_", sanitized)
-        # Remove leading/trailing underscores
-        sanitized = sanitized.strip("_")
-        return sanitized
 
 
 class ForceMoment(BaseModel):
@@ -737,11 +737,8 @@ class LoadSet(BaseModel):
         if file_path is not None:
             path = Path(file_path)
 
-            # Check if parent directory exists
-            if not path.parent.exists():
-                raise FileNotFoundError(
-                    f"Directory does not exist: {path.parent}"
-                )
+            # Create parent directory if it doesn't exist
+            path.parent.mkdir(parents=True, exist_ok=True)
 
             try:
                 path.write_text(json_str, encoding="utf-8")
@@ -912,7 +909,7 @@ class LoadSet(BaseModel):
 
         for load_case in self.load_cases:
             # Sanitize load case name for filename
-            sanitized_name = self._sanitize_filename(load_case.name or "unnamed")
+            sanitized_name = _sanitize_filename(load_case.name or "unnamed")
             if name_stem is None:
                 filename = f"{sanitized_name}.inp"
             else:
@@ -925,24 +922,6 @@ class LoadSet(BaseModel):
             # Write to file
             with open(file_path, "w", encoding="utf-8") as f:
                 f.write(ansys_content)
-
-    def _sanitize_filename(self, name: str) -> str:
-        """
-        Sanitize a string to be safe for use as a filename.
-
-        Args:
-            name: Original name
-
-        Returns:
-            str: Sanitized name safe for filenames
-        """
-        # Replace spaces, special characters with underscores
-        sanitized = re.sub(r"[^\w\-_]", "_", name)
-        # Remove multiple consecutive underscores
-        sanitized = re.sub(r"_+", "_", sanitized)
-        # Remove leading/trailing underscores
-        sanitized = sanitized.strip("_")
-        return sanitized
 
     def _generate_ansys_content(
         self, load_case: LoadCase, exclude: list[str] | None = None

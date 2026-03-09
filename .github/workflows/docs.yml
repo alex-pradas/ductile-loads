@@ -20,4 +20,6 @@ jobs:
 
       - run: pip install mkdocs-material "mkdocs<2" mkdocs-llmstxt "mkdocstrings[python]"
 
+      - run: pip install .
+
       - run: mkdocs gh-deploy --force

@@ -1,6 +1,6 @@
 # ductile-loads
 
-Certified loads processing tool for structural analysis, approved under the Design Quality Management System (DQMS).
+This is a demo package for the purpose of demonstrating the data processing capabilities of LLM Agents in engineering analysis, as part of the DUCTILE approach.
 
 `ductile-loads` provides a complete pipeline for processing structural load data: reading load deliveries, converting units, downselecting critical load cases via envelope analysis, exporting to ANSYS, and comparing load sets across revisions.
 
@@ -8,8 +8,16 @@ This is a sample tool as part of the DUCTILE agentic orchestration paper. See th
 
 ## Installation
 
+We recommend using uv to manage python packages, but this package works with any other alternative instalation.
+
 ```bash
 uv add ductile-loads
+```
+
+Or with pip:
+
+```bash
+pip install ductile-loads
 ```
 
 ## Quick start
@@ -29,8 +37,6 @@ ls_env = ls.envelope()
 # Export to ANSYS
 ls_env.to_ansys(folder_path="design_loads", name_stem="design_load")
 
-# Get envelope extremes
-extremes = ls_env.get_point_extremes(output="envelope_extremes.json")
 ```
 
 ## Key features

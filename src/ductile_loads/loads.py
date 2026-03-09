@@ -57,11 +57,15 @@ class LoadSetCompare(BaseModel):
     comparison_rows: list[ComparisonRow]
 
     def to_dict(self) -> dict:
-        """
-        Convert LoadSetCompare to dictionary format.
+        """Convert the comparison to a dictionary.
 
         Returns:
-            dict: Dictionary representation of the comparison
+            A dict with two top-level keys:
+
+            - `report_metadata.loadcases_info` — contains `loadset1`
+                and `loadset2` metadata dicts.
+            - `comparisons` — list of per-row dicts (one per
+                point/component/type combination).
         """
         return {
             "report_metadata": {
@@ -549,9 +553,10 @@ class LoadSetCompare(BaseModel):
 
 
 class ForceMoment(BaseModel):
-    """
-    ForceMoment is a model that represents a force and a moment.
-    It is used to calculate the force and moment at a point in space.
+    """Six-component force/moment vector at a point.
+
+    Contains three force components (fx, fy, fz) and three moment
+    components (mx, my, mz). All default to zero.
     """
 
     fx: float = 0.0
@@ -563,9 +568,11 @@ class ForceMoment(BaseModel):
 
 
 class PointLoad(BaseModel):
-    """
-    PointLoad is a model that represents a point load in a simulation.
-    It is used to define the loads acting on a structure at a specific point.
+    """A named structural point with an associated force/moment vector.
+
+    Attributes:
+        name: Identifier for this load point (e.g. a pilot node name).
+        force_moment: The six-component force/moment vector at this point.
     """
 
     name: str | None = None
@@ -573,9 +580,15 @@ class PointLoad(BaseModel):
 
 
 class LoadCase(BaseModel):
-    """
-    LoadCase is a model that represents a load case in a simulation.
-    It is used to define the loads acting on a structure.
+    """A named load case containing point loads.
+
+    Represents a single loading condition (e.g. a manoeuvre or gust case)
+    applied to one or more structural points.
+
+    Attributes:
+        name: Load case identifier.
+        description: Optional free-text description.
+        point_loads: The point loads belonging to this case.
     """
 
     name: str | None = None
@@ -584,8 +597,11 @@ class LoadCase(BaseModel):
 
 
 class Units(BaseModel):
-    """
-    Units is a model that represents the units used in the load set.
+    """Force and moment unit pair.
+
+    Attributes:
+        forces: Force unit — one of `"N"`, `"kN"`, or `"klbs"`.
+        moments: Moment unit — one of `"Nmm"`, `"Nm"`, `"kNm"`, or `"klbs.in"`.
     """
 
     forces: ForceUnit = "N"
@@ -593,9 +609,19 @@ class Units(BaseModel):
 
 
 class LoadSet(BaseModel):
-    """
-    LoadSet is a model that represents a set of load cases in a simulation.
-    It is used to group multiple load cases together.
+    """Top-level model: a versioned collection of load cases with units.
+
+    This is the main entry point for working with structural load data.
+    Supports reading/writing JSON and ANSYS formats, unit conversion,
+    envelope analysis, and comparison between load sets.
+
+    Attributes:
+        name: LoadSet identifier.
+        description: Optional free-text description.
+        version: Integer version number for tracking revisions.
+        units: Force and moment units for all values in this set.
+        loads_type: Whether loads are `"limit"` or `"ultimate"`, or `None`.
+        load_cases: The load cases in this set.
     """
 
     name: str | None
@@ -748,17 +774,26 @@ class LoadSet(BaseModel):
         return json_str
 
     def convert_to(self, units: ForceUnit) -> "LoadSet":
-        """
-        Convert LoadSet to different units.
+        """Convert all force and moment values to the target unit system.
+
+        The force unit determines the paired moment unit automatically:
+
+        | Force   | Moment     |
+        |---------|------------|
+        | `"N"`   | `"Nm"`     |
+        | `"kN"`  | `"kNm"`    |
+        | `"klbs"`| `"klbs.in"`|
+
+        Conversion factors: 1 klbs = 4448.22 N, 1 klbs.in = 112.98 Nm.
 
         Args:
-            units: Target force units ("N", "kN", "klbs")
+            units: Target force unit.
 
         Returns:
-            LoadSet: New LoadSet instance with converted values
+            A new LoadSet with converted values.
 
         Raises:
-            ValueError: If the target units are not supported
+            ValueError: If the target unit is not supported.
         """
         # Define conversion factors to base units (N and Nm)
         force_factors = {"N": 1.0, "kN": 1000.0, "klbs": 4448.221628}
@@ -1077,17 +1112,21 @@ class LoadSet(BaseModel):
         return filtered_extremes
 
     def compare_to(self, other: "LoadSet") -> LoadSetCompare:
-        """
-        Compare this LoadSet to another LoadSet.
+        """Compare this LoadSet's envelope to another LoadSet's envelope.
+
+        Units are auto-converted if they differ (converts `other` to match
+        `self`). For each shared point and component, a ComparisonRow is
+        created for both the max and min extremes, with absolute and
+        percentage differences.
 
         Args:
-            other: The LoadSet to compare against
+            other: The LoadSet to compare against.
 
         Returns:
-            LoadSetCompare: Detailed comparison results
+            A LoadSetCompare with detailed comparison results.
 
         Raises:
-            ValueError: If the comparison cannot be performed
+            ValueError: If `other` is not a LoadSet instance.
         """
         if not isinstance(other, LoadSet):
             raise ValueError("Can only compare to another LoadSet instance")
@@ -1361,11 +1400,13 @@ class LoadSet(BaseModel):
         return extremes
 
     def print_head(self, n: int = 5) -> None:
-        """
-        Print a preview of the first N load cases in a formatted table.
+        """Print a preview of the first N load cases as a formatted table.
+
+        Extreme values within each load case are highlighted (bold).
+        Requires the `display` extra (`rich`).
 
         Args:
-            n: Number of load cases to display (default: 5)
+            n: Number of load cases to display.
         """
         from rich.console import Console
         from rich.table import Table
@@ -1443,8 +1484,10 @@ class LoadSet(BaseModel):
             console.print(f"[dim]Showing all {total} load cases[/dim]")
 
     def print_table(self) -> None:
-        """
-        Print all load cases in a formatted table.
+        """Print all load cases as a formatted table.
+
+        Like `print_head` but shows every load case.
+        Requires the `display` extra (`rich`).
         """
         from rich.console import Console
         from rich.table import Table
@@ -1515,10 +1558,10 @@ class LoadSet(BaseModel):
         console.print(f"[dim]Total: {len(self.load_cases)} load cases[/dim]")
 
     def print_extremes(self) -> None:
-        """
-        Print extreme values (max/min) for each point and component.
+        """Print extreme values per point and component as a table.
 
-        Uses get_point_extremes() to show only the envelope bounds.
+        Displays max/min values with their originating load case names.
+        Requires the `display` extra (`rich`).
         """
         from rich.console import Console
         from rich.table import Table
@@ -1587,11 +1630,13 @@ class LoadSet(BaseModel):
         console.print(f"[dim]Points: {len(extremes)} | From {n_cases} load cases[/dim]")
 
     def envelope_to_markdown(self, output: PathLike | None = None) -> str:
-        """Return the envelope summary as a Markdown-formatted string.
+        """Return the envelope summary as a Markdown table.
+
+        Generates a table with one max and one min row per point, showing
+        all six components (fx–mz) and the originating load case.
 
         Args:
-            output: Optional file path. If given, the Markdown is also
-                written to this file.
+            output: Optional file path to write the Markdown.
 
         Returns:
             The Markdown string (always returned, even when written to file).

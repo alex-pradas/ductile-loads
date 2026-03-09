@@ -21,6 +21,16 @@ nav:
 
 plugins:
   - search
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            show_source: false
+            show_root_heading: true
+            members_order: source
+            docstring_style: google
+            show_bases: false
+            heading_level: 3
   - llmstxt:
       full_output: llms-full.txt
       sections:

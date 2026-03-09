@@ -12,7 +12,7 @@ dependencies = ["pydantic"]
 display = ["rich"]
 charts = ["matplotlib"]
 all = ["rich", "matplotlib"]
-docs = ["mkdocs-material", "mkdocs<2", "mkdocs-llmstxt"]
+docs = ["mkdocs-material", "mkdocs<2", "mkdocs-llmstxt", "mkdocstrings[python]"]
 
 [build-system]
 requires = ["hatchling"]

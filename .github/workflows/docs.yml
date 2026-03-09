@@ -22,4 +22,9 @@ jobs:
 
       - run: pip install .
 
+      - run: mkdocs build
+
+      - name: Fix broken union types in llms*.txt
+        run: python fix_llmstxt_pipes.py site/llms-full.txt site/llms.txt
+
       - run: mkdocs gh-deploy --force

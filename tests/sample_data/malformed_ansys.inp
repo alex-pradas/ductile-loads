@@ -1,0 +1,5 @@
+! This file is intentionally malformed for testing
+nsel,u,,,all
+
+cmsel,s,pilot_PointA
+f,all,fx,notanumber

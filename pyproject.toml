@@ -1,6 +1,6 @@
 [project]
 name = "ductile-loads"
-version = "1.1.0"
+version = "1.2.0"
 description = "Loads processing tool for structural analysis — certified under DQMS"
 readme = "README.md"
 license = "MIT"
@@ -13,7 +13,18 @@ display = ["rich"]
 charts = ["matplotlib"]
 all = ["rich", "matplotlib"]
 docs = ["mkdocs-material", "mkdocs<2", "mkdocs-llmstxt", "mkdocstrings[python]"]
+dev = ["pytest", "pytest-cov"]
 
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.coverage.run]
+source = ["ductile_loads"]
+
+[tool.coverage.report]
+show_missing = true
+fail_under = 90

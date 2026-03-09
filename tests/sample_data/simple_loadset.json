@@ -1,0 +1,68 @@
+{
+  "name": "Sample LoadSet",
+  "description": "Test data with known values",
+  "version": 1,
+  "units": {
+    "forces": "N",
+    "moments": "Nm"
+  },
+  "loads_type": "limit",
+  "load_cases": [
+    {
+      "name": "Case_A",
+      "description": "First test case",
+      "point_loads": [
+        {
+          "name": "PointA",
+          "force_moment": {
+            "fx": 100.0,
+            "fy": -50.0,
+            "fz": 200.0,
+            "mx": 10.0,
+            "my": -20.0,
+            "mz": 0.0
+          }
+        },
+        {
+          "name": "PointB",
+          "force_moment": {
+            "fx": -300.0,
+            "fy": 150.0,
+            "fz": 0.0,
+            "mx": 0.0,
+            "my": 30.0,
+            "mz": -15.0
+          }
+        }
+      ]
+    },
+    {
+      "name": "Case_B",
+      "description": "Second test case",
+      "point_loads": [
+        {
+          "name": "PointA",
+          "force_moment": {
+            "fx": 500.0,
+            "fy": 200.0,
+            "fz": -100.0,
+            "mx": -5.0,
+            "my": 40.0,
+            "mz": 25.0
+          }
+        },
+        {
+          "name": "PointB",
+          "force_moment": {
+            "fx": 50.0,
+            "fy": -400.0,
+            "fz": 75.0,
+            "mx": 60.0,
+            "my": -10.0,
+            "mz": 0.0
+          }
+        }
+      ]
+    }
+  ]
+}

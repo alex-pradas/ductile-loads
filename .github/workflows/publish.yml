@@ -1,4 +1,4 @@
-name: Test and Publish
+name: Tests
 
 on:
   push:
@@ -24,11 +24,19 @@ jobs:
       - name: Set up Python ${{ matrix.python-version }}
         run: uv python install ${{ matrix.python-version }}
 
-      - name: Install package
-        run: uv sync
+      - name: Install package with test dependencies
+        run: uv sync --extra dev --extra all
 
-      - name: Test import
-        run: uv run python -c "from ductile_loads import LoadSet, LoadCase, PointLoad, ForceMoment, Units; print('OK')"
+      - name: Run tests with coverage
+        run: uv run pytest --cov --cov-report=term-missing --cov-report=json -q
+
+      - name: Upload coverage to Codecov
+        if: matrix.python-version == '3.13' && github.event_name == 'push'
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: coverage.json
+          fail_ci_if_error: false
 
   publish:
     needs: test

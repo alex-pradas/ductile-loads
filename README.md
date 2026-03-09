@@ -1,5 +1,12 @@
 # ductile-loads
 
+[![PyPI](https://img.shields.io/pypi/v/ductile-loads)](https://pypi.org/project/ductile-loads/)
+[![Python](https://img.shields.io/pypi/pyversions/ductile-loads)](https://pypi.org/project/ductile-loads/)
+[![Tests](https://github.com/alex-pradas/ductile-loads/actions/workflows/publish.yml/badge.svg)](https://github.com/alex-pradas/ductile-loads/actions/workflows/publish.yml)
+[![codecov](https://codecov.io/gh/alex-pradas/ductile-loads/graph/badge.svg)](https://codecov.io/gh/alex-pradas/ductile-loads)
+[![Docs](https://github.com/alex-pradas/ductile-loads/actions/workflows/docs.yml/badge.svg)](https://alex-pradas.github.io/ductile-loads)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
 Loads processing tool for structural analysis, certified under the Design Quality Management System (DQMS).
 
 This is a sample tool as part of the DUCTILE agentic orchestration paper. See the [DUCTILE repository](https://github.com/alex-pradas/DUCTILE) or the paper (DOI: TBD) for context.

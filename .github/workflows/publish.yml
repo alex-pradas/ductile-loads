@@ -28,15 +28,21 @@ jobs:
         run: uv sync --extra dev --extra all
 
       - name: Run tests with coverage
-        run: uv run pytest --cov --cov-report=term-missing --cov-report=json -q
+        run: uv run pytest --cov --cov-report=term-missing --cov-report=json --junitxml=junit.xml -o junit_family=legacy -q
 
       - name: Upload coverage to Codecov
-        if: matrix.python-version == '3.13' && github.event_name == 'push'
+        if: ${{ !cancelled() }}
         uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: coverage.json
           fail_ci_if_error: false
+
+      - name: Upload test results to Codecov
+        if: ${{ !cancelled() }}
+        uses: codecov/test-results-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
 
   publish:
     needs: test

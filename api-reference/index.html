@@ -1,0 +1,3522 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Loads processing tool for structural analysis">
+      
+      
+      
+        <link rel="canonical" href="https://alex-pradas.github.io/ductile-loads/api-reference/">
+      
+      
+        <link rel="prev" href="../getting-started/">
+      
+      
+        <link rel="next" href="../formats/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.4">
+    
+    
+      
+        <title>API Reference - ductile-loads</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#api-reference" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="ductile-loads" class="md-header__button md-logo" aria-label="ductile-loads" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ductile-loads
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              API Reference
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/alex-pradas/ductile-loads" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    alex-pradas/ductile-loads
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="ductile-loads" class="md-nav__button md-logo" aria-label="ductile-loads" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    ductile-loads
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/alex-pradas/ductile-loads" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    alex-pradas/ductile-loads
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#data-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data Models
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Data Models">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ductile_loads.ForceMoment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ForceMoment
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ductile_loads.PointLoad" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PointLoad
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ductile_loads.LoadCase" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LoadCase
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ductile_loads.Units" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Units
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#loadset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LoadSet
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="LoadSet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ductile_loads.LoadSet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LoadSet
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="LoadSet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ductile_loads.LoadSet.generate_json_schema" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        generate_json_schema
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ductile_loads.LoadSet.read_json" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        read_json
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ductile_loads.LoadSet.to_json" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        to_json
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ductile_loads.LoadSet.convert_to" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        convert_to
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ductile_loads.LoadSet.factor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        factor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ductile_loads.LoadSet.to_ansys" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        to_ansys
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ductile_loads.LoadSet.get_point_extremes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_point_extremes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ductile_loads.LoadSet.compare_to" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        compare_to
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ductile_loads.LoadSet.envelope" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        envelope
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ductile_loads.LoadSet.print_head" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        print_head
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ductile_loads.LoadSet.print_table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        print_table
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ductile_loads.LoadSet.print_extremes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        print_extremes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ductile_loads.LoadSet.envelope_to_markdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        envelope_to_markdown
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ductile_loads.LoadSet.print_envelope" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        print_envelope
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ductile_loads.LoadSet.read_ansys" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        read_ansys
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#loadsetcompare" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LoadSetCompare
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="LoadSetCompare">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ductile_loads.LoadSetCompare" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LoadSetCompare
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="LoadSetCompare">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ductile_loads.LoadSetCompare.to_dict" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        to_dict
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ductile_loads.LoadSetCompare.to_json" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        to_json
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ductile_loads.LoadSetCompare.new_exceeds_old" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        new_exceeds_old
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ductile_loads.LoadSetCompare.generate_comparison_report" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        generate_comparison_report
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ductile_loads.LoadSetCompare.generate_range_charts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        generate_range_charts
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ductile_loads.ComparisonRow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ComparisonRow
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../formats/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Formats
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#data-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data Models
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Data Models">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ductile_loads.ForceMoment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ForceMoment
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ductile_loads.PointLoad" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PointLoad
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ductile_loads.LoadCase" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LoadCase
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ductile_loads.Units" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Units
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#loadset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LoadSet
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="LoadSet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ductile_loads.LoadSet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LoadSet
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="LoadSet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ductile_loads.LoadSet.generate_json_schema" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        generate_json_schema
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ductile_loads.LoadSet.read_json" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        read_json
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ductile_loads.LoadSet.to_json" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        to_json
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ductile_loads.LoadSet.convert_to" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        convert_to
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ductile_loads.LoadSet.factor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        factor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ductile_loads.LoadSet.to_ansys" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        to_ansys
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ductile_loads.LoadSet.get_point_extremes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_point_extremes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ductile_loads.LoadSet.compare_to" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        compare_to
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ductile_loads.LoadSet.envelope" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        envelope
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ductile_loads.LoadSet.print_head" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        print_head
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ductile_loads.LoadSet.print_table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        print_table
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ductile_loads.LoadSet.print_extremes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        print_extremes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ductile_loads.LoadSet.envelope_to_markdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        envelope_to_markdown
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ductile_loads.LoadSet.print_envelope" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        print_envelope
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ductile_loads.LoadSet.read_ansys" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        read_ansys
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#loadsetcompare" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LoadSetCompare
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="LoadSetCompare">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ductile_loads.LoadSetCompare" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LoadSetCompare
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="LoadSetCompare">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ductile_loads.LoadSetCompare.to_dict" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        to_dict
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ductile_loads.LoadSetCompare.to_json" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        to_json
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ductile_loads.LoadSetCompare.new_exceeds_old" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        new_exceeds_old
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ductile_loads.LoadSetCompare.generate_comparison_report" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        generate_comparison_report
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ductile_loads.LoadSetCompare.generate_range_charts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        generate_range_charts
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ductile_loads.ComparisonRow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ComparisonRow
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="api-reference">API Reference<a class="headerlink" href="#api-reference" title="Permanent link">&para;</a></h1>
+<p>All public classes are importable from the top-level package:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ductile_loads</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n">ForceMoment</span><span class="p">,</span> <span class="n">PointLoad</span><span class="p">,</span> <span class="n">LoadCase</span><span class="p">,</span> <span class="n">Units</span><span class="p">,</span> <span class="n">LoadSet</span><span class="p">,</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n">ComparisonRow</span><span class="p">,</span> <span class="n">LoadSetCompare</span><span class="p">,</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="p">)</span>
+</code></pre></div>
+<hr />
+<h2 id="data-models">Data Models<a class="headerlink" href="#data-models" title="Permanent link">&para;</a></h2>
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="ductile_loads.ForceMoment" class="doc doc-heading">
+            <code>ductile_loads.ForceMoment</code>
+
+
+<a href="#ductile_loads.ForceMoment" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents first">
+
+
+
+        <p>Six-component force/moment vector at a point.</p>
+<p>Contains three force components (fx, fy, fz) and three moment
+components (mx, my, mz). All default to zero.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="ductile_loads.PointLoad" class="doc doc-heading">
+            <code>ductile_loads.PointLoad</code>
+
+
+<a href="#ductile_loads.PointLoad" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents first">
+
+
+
+        <p>A named structural point with an associated force/moment vector.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="ductile_loads.PointLoad.name">name</span></code></td>
+            <td>
+                  <code><span title="str">str</span> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Identifier for this load point (e.g. a pilot node name).</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="ductile_loads.PointLoad.force_moment">force_moment</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="ductile_loads.ForceMoment (ductile_loads.loads.ForceMoment)" href="#ductile_loads.ForceMoment">ForceMoment</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The six-component force/moment vector at this point.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="ductile_loads.LoadCase" class="doc doc-heading">
+            <code>ductile_loads.LoadCase</code>
+
+
+<a href="#ductile_loads.LoadCase" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents first">
+
+
+
+        <p>A named load case containing point loads.</p>
+<p>Represents a single loading condition (e.g. a manoeuvre or gust case)
+applied to one or more structural points.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="ductile_loads.LoadCase.name">name</span></code></td>
+            <td>
+                  <code><span title="str">str</span> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Load case identifier.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="ductile_loads.LoadCase.description">description</span></code></td>
+            <td>
+                  <code><span title="str">str</span> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Optional free-text description.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="ductile_loads.LoadCase.point_loads">point_loads</span></code></td>
+            <td>
+                  <code><span title="list">list</span>[<a class="autorefs autorefs-internal" title="ductile_loads.PointLoad (ductile_loads.loads.PointLoad)" href="#ductile_loads.PointLoad">PointLoad</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The point loads belonging to this case.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="ductile_loads.Units" class="doc doc-heading">
+            <code>ductile_loads.Units</code>
+
+
+<a href="#ductile_loads.Units" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents first">
+
+
+
+        <p>Force and moment unit pair.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="ductile_loads.Units.forces">forces</span></code></td>
+            <td>
+                  <code><span title="ductile_loads.loads.ForceUnit">ForceUnit</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Force unit — one of <code>"N"</code>, <code>"kN"</code>, or <code>"klbs"</code>.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="ductile_loads.Units.moments">moments</span></code></td>
+            <td>
+                  <code><span title="ductile_loads.loads.MomentUnit">MomentUnit</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Moment unit — one of <code>"Nmm"</code>, <code>"Nm"</code>, <code>"kNm"</code>, or <code>"klbs.in"</code>.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div><hr />
+<h2 id="loadset">LoadSet<a class="headerlink" href="#loadset" title="Permanent link">&para;</a></h2>
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="ductile_loads.LoadSet" class="doc doc-heading">
+            <code>ductile_loads.LoadSet</code>
+
+
+<a href="#ductile_loads.LoadSet" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents first">
+
+
+
+        <p>Top-level model: a versioned collection of load cases with units.</p>
+<p>This is the main entry point for working with structural load data.
+Supports reading/writing JSON and ANSYS formats, unit conversion,
+envelope analysis, and comparison between load sets.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="ductile_loads.LoadSet.name">name</span></code></td>
+            <td>
+                  <code><span title="str">str</span> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>LoadSet identifier.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="ductile_loads.LoadSet.description">description</span></code></td>
+            <td>
+                  <code><span title="str">str</span> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Optional free-text description.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="ductile_loads.LoadSet.version">version</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Integer version number for tracking revisions.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="ductile_loads.LoadSet.units">units</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="ductile_loads.Units (ductile_loads.loads.Units)" href="#ductile_loads.Units">Units</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Force and moment units for all values in this set.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="ductile_loads.LoadSet.loads_type">loads_type</span></code></td>
+            <td>
+                  <code><span title="typing.Literal">Literal</span>[&#39;limit&#39;, &#39;ultimate&#39;] | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Whether loads are <code>"limit"</code> or <code>"ultimate"</code>, or <code>None</code>.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="ductile_loads.LoadSet.load_cases">load_cases</span></code></td>
+            <td>
+                  <code><span title="list">list</span>[<a class="autorefs autorefs-internal" title="ductile_loads.LoadCase (ductile_loads.loads.LoadCase)" href="#ductile_loads.LoadCase">LoadCase</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The load cases in this set.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="ductile_loads.LoadSet.generate_json_schema" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">generate_json_schema</span><span class="p">(</span><span class="n">output_file</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
+  </span>
+
+<a href="#ductile_loads.LoadSet.generate_json_schema" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Generate JSON Schema for LoadSet model.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>output_file</code>
+            </td>
+            <td>
+                  <code><span title="os.PathLike">PathLike</span> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Optional path to save the schema file</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+<th>Name</th>          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+<td><code>dict</code></td>            <td>
+                  <code><span title="dict">dict</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>JSON Schema for LoadSet model</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="FileNotFoundError">FileNotFoundError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If output directory doesn't exist</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="ValueError">ValueError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If schema generation fails</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="ductile_loads.LoadSet.read_json" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">read_json</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
+  </span>
+
+<a href="#ductile_loads.LoadSet.read_json" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Read a LoadSet from a JSON file.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>file_path</code>
+            </td>
+            <td>
+                  <code><span title="os.PathLike">PathLike</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Path to the JSON file to read</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+<th>Name</th>          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+<td><code>LoadSet</code></td>            <td>
+                  <code><a class="autorefs autorefs-internal" title="ductile_loads.LoadSet (ductile_loads.loads.LoadSet)" href="#ductile_loads.LoadSet">LoadSet</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The loaded LoadSet instance</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="FileNotFoundError">FileNotFoundError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If the file doesn't exist</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="json.JSONDecodeError">JSONDecodeError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If the JSON is invalid</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="ValueError">ValueError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If the data doesn't match the schema</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="ductile_loads.LoadSet.to_json" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">to_json</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span></code>
+
+<a href="#ductile_loads.LoadSet.to_json" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Write LoadSet to a JSON file and/or return JSON string.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>file_path</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span> | <span title="os.PathLike">PathLike</span> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Optional path to write the JSON file. If None, only returns string.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>indent</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>JSON indentation level (default: 2)</p>
+              </div>
+            </td>
+            <td>
+                  <code>2</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+<th>Name</th>          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+<td><code>str</code></td>            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>JSON representation of the LoadSet</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="FileNotFoundError">FileNotFoundError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If the output directory doesn't exist</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="ValueError">ValueError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If serialization fails</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="ductile_loads.LoadSet.convert_to" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">convert_to</span><span class="p">(</span><span class="n">units</span><span class="p">)</span></code>
+
+<a href="#ductile_loads.LoadSet.convert_to" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Convert all force and moment values to the target unit system.</p>
+<p>The force unit determines the paired moment unit automatically:</p>
+<table>
+<thead>
+<tr>
+<th>Force</th>
+<th>Moment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>"N"</code></td>
+<td><code>"Nm"</code></td>
+</tr>
+<tr>
+<td><code>"kN"</code></td>
+<td><code>"kNm"</code></td>
+</tr>
+<tr>
+<td><code>"klbs"</code></td>
+<td><code>"klbs.in"</code></td>
+</tr>
+</tbody>
+</table>
+<p>Conversion factors: 1 klbs = 4448.22 N, 1 klbs.in = 112.98 Nm.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>units</code>
+            </td>
+            <td>
+                  <code><span title="ductile_loads.loads.ForceUnit">ForceUnit</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Target force unit.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="ductile_loads.LoadSet (ductile_loads.loads.LoadSet)" href="#ductile_loads.LoadSet">LoadSet</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A new LoadSet with converted values.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="ValueError">ValueError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If the target unit is not supported.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="ductile_loads.LoadSet.factor" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">factor</span><span class="p">(</span><span class="n">by</span><span class="p">)</span></code>
+
+<a href="#ductile_loads.LoadSet.factor" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Scale all force and moment values by a factor.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>by</code>
+            </td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Factor to scale by (can be positive, negative, or zero)</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+<th>Name</th>          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+<td><code>LoadSet</code></td>            <td>
+                  <code><a class="autorefs autorefs-internal" title="ductile_loads.LoadSet (ductile_loads.loads.LoadSet)" href="#ductile_loads.LoadSet">LoadSet</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>New LoadSet instance with scaled values</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="ductile_loads.LoadSet.to_ansys" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">to_ansys</span><span class="p">(</span><span class="n">folder_path</span><span class="o">=</span><span class="s1">&#39;temp&#39;</span><span class="p">,</span> <span class="n">name_stem</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+<a href="#ductile_loads.LoadSet.to_ansys" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Export LoadSet to ANSYS load files.</p>
+<p>Creates one file per load case with ANSYS F command format.
+Creates the output folder if it doesn't exist and cleans any existing files.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>folder_path</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span> | <span title="os.PathLike">PathLike</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Directory to save the files. Defaults to 'temp'.</p>
+              </div>
+            </td>
+            <td>
+                  <code>&#39;temp&#39;</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>name_stem</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Optional base name for the files. If None, uses only load case names.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>exclude</code>
+            </td>
+            <td>
+                  <code><span title="list">list</span>[<span title="str">str</span>] | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>List of point names to exclude from export.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="FileNotFoundError">FileNotFoundError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If the folder path exists but is not a directory</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="ductile_loads.LoadSet.get_point_extremes" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">get_point_extremes</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+<a href="#ductile_loads.LoadSet.get_point_extremes" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get extreme values (max/min) for each point and component across all load cases.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>output</code>
+            </td>
+            <td>
+                  <code><span title="os.PathLike">PathLike</span> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Optional file path. If given, the extremes are also
+written as JSON to this file.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+<th>Name</th>          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+<td><code>dict</code></td>            <td>
+                  <code><span title="dict">dict</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Nested dictionary structure::</p>
+<p>{
+    "Point_A": {
+        "fx": {"max": {"value": 100.0, "loadcase": "Case1"},
+               "min": {"value": 80.0, "loadcase": "Case2"}},
+        "fy": {...},
+        ...
+    },
+    ...
+}</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="ductile_loads.LoadSet.compare_to" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">compare_to</span><span class="p">(</span><span class="n">other</span><span class="p">)</span></code>
+
+<a href="#ductile_loads.LoadSet.compare_to" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Compare this LoadSet's envelope to another LoadSet's envelope.</p>
+<p>Units are auto-converted if they differ (converts <code>other</code> to match
+<code>self</code>). For each shared point and component, a ComparisonRow is
+created for both the max and min extremes, with absolute and
+percentage differences.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>other</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="ductile_loads.LoadSet (ductile_loads.loads.LoadSet)" href="#ductile_loads.LoadSet">LoadSet</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The LoadSet to compare against.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="ductile_loads.LoadSetCompare (ductile_loads.loads.LoadSetCompare)" href="#ductile_loads.LoadSetCompare">LoadSetCompare</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A LoadSetCompare with detailed comparison results.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="ValueError">ValueError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If <code>other</code> is not a LoadSet instance.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="ductile_loads.LoadSet.envelope" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">envelope</span><span class="p">()</span></code>
+
+<a href="#ductile_loads.LoadSet.envelope" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Create an envelope LoadSet containing only load cases with extreme values.</p>
+<p>For each point and component (fx, fy, fz, mx, my, mz), selects load cases with:
+- Maximum value (always included)
+- Minimum value (only if negative)</p>
+<p>Load cases appearing multiple times (having extremes in multiple components)
+are deduplicated in the result.</p>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+<th>Name</th>          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+<td><code>LoadSet</code></td>            <td>
+                  <code><a class="autorefs autorefs-internal" title="ductile_loads.LoadSet (ductile_loads.loads.LoadSet)" href="#ductile_loads.LoadSet">LoadSet</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>New LoadSet with envelope load cases only</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="ValueError">ValueError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If LoadSet has no load cases</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="ductile_loads.LoadSet.print_head" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">print_head</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span></code>
+
+<a href="#ductile_loads.LoadSet.print_head" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Print a preview of the first N load cases as a formatted table.</p>
+<p>Extreme values within each load case are highlighted (bold).
+Requires the <code>display</code> extra (<code>rich</code>).</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>n</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Number of load cases to display.</p>
+              </div>
+            </td>
+            <td>
+                  <code>5</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="ductile_loads.LoadSet.print_table" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">print_table</span><span class="p">()</span></code>
+
+<a href="#ductile_loads.LoadSet.print_table" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Print all load cases as a formatted table.</p>
+<p>Like <code>print_head</code> but shows every load case.
+Requires the <code>display</code> extra (<code>rich</code>).</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="ductile_loads.LoadSet.print_extremes" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">print_extremes</span><span class="p">()</span></code>
+
+<a href="#ductile_loads.LoadSet.print_extremes" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Print extreme values per point and component as a table.</p>
+<p>Displays max/min values with their originating load case names.
+Requires the <code>display</code> extra (<code>rich</code>).</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="ductile_loads.LoadSet.envelope_to_markdown" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">envelope_to_markdown</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+<a href="#ductile_loads.LoadSet.envelope_to_markdown" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Return the envelope summary as a Markdown table.</p>
+<p>Generates a table with one max and one min row per point, showing
+all six components (fx–mz) and the originating load case.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>output</code>
+            </td>
+            <td>
+                  <code><span title="os.PathLike">PathLike</span> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Optional file path to write the Markdown.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The Markdown string (always returned, even when written to file).</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="ductile_loads.LoadSet.print_envelope" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">print_envelope</span><span class="p">()</span></code>
+
+<a href="#ductile_loads.LoadSet.print_envelope" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Print envelope summary in wide format with one max and one min row per point.</p>
+<p>Each row shows values for all 6 force/moment components. The max row shows
+the maximum value found across all load cases for each component independently,
+and the min row shows the minimum.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="ductile_loads.LoadSet.read_ansys" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">read_ansys</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">units</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
+  </span>
+
+<a href="#ductile_loads.LoadSet.read_ansys" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Read a LoadSet from an ANSYS .inp file.</p>
+<p>Parses ANSYS load files with the following format:
+- /TITLE,{loadcase_name} - defines the load case name
+- cmsel,s,pilot_{node_name} - selects the pilot node
+- f,all,{component},{value} - applies force/moment components</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>file_path</code>
+            </td>
+            <td>
+                  <code><span title="os.PathLike">PathLike</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Path to the ANSYS .inp file to read</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>units</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="ductile_loads.Units (ductile_loads.loads.Units)" href="#ductile_loads.Units">Units</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Units to use for the LoadSet (forces and moments)</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>name</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Optional name for the LoadSet (defaults to filename without extension)</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>version</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Version number for the LoadSet (defaults to 1)</p>
+              </div>
+            </td>
+            <td>
+                  <code>1</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+<th>Name</th>          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+<td><code>LoadSet</code></td>            <td>
+                  <code><a class="autorefs autorefs-internal" title="ductile_loads.LoadSet (ductile_loads.loads.LoadSet)" href="#ductile_loads.LoadSet">LoadSet</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The loaded LoadSet instance with a single LoadCase</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="FileNotFoundError">FileNotFoundError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If the file doesn't exist</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="ValueError">ValueError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If the file format is invalid or cannot be parsed</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div><hr />
+<h2 id="loadsetcompare">LoadSetCompare<a class="headerlink" href="#loadsetcompare" title="Permanent link">&para;</a></h2>
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="ductile_loads.LoadSetCompare" class="doc doc-heading">
+            <code>ductile_loads.LoadSetCompare</code>
+
+
+<a href="#ductile_loads.LoadSetCompare" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents first">
+
+
+
+        <p>LoadSetCompare contains the results of comparing two LoadSets.
+Provides tabular comparison data and export functionality.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="ductile_loads.LoadSetCompare.to_dict" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">to_dict</span><span class="p">()</span></code>
+
+<a href="#ductile_loads.LoadSetCompare.to_dict" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Convert the comparison to a dictionary.</p>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="dict">dict</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A dict with two top-level keys:</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="dict">dict</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <ul>
+<li><code>report_metadata.loadcases_info</code> — contains <code>loadset1</code>
+and <code>loadset2</code> metadata dicts.</li>
+</ul>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="dict">dict</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <ul>
+<li><code>comparisons</code> — list of per-row dicts (one per
+point/component/type combination).</li>
+</ul>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="ductile_loads.LoadSetCompare.to_json" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">to_json</span><span class="p">(</span><span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span></code>
+
+<a href="#ductile_loads.LoadSetCompare.to_json" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Export LoadSetCompare to JSON string.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>indent</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>JSON indentation level</p>
+              </div>
+            </td>
+            <td>
+                  <code>2</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+<th>Name</th>          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+<td><code>str</code></td>            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>JSON representation of the comparison</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="ductile_loads.LoadSetCompare.new_exceeds_old" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">new_exceeds_old</span><span class="p">()</span></code>
+
+<a href="#ductile_loads.LoadSetCompare.new_exceeds_old" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Check if loadset2 (new) exceeds loadset1 (old) envelope in any component comparison.</p>
+<p>Returns True if at least one component comparison shows that loadset2 exceeds
+loadset1's bounds:
+- For "max" type: loadset2_value &gt; loadset1_value (higher maximum)
+- For "min" type: loadset2_value &lt; loadset1_value (lower minimum, more negative)</p>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+<th>Name</th>          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+<td><code>bool</code></td>            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>True if new loads exceed old envelope in at least one comparison,
+  False if old loads fully envelope the new delivery</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="ductile_loads.LoadSetCompare.generate_comparison_report" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">generate_comparison_report</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">report_name</span><span class="o">=</span><span class="s1">&#39;comparison_report&#39;</span><span class="p">,</span> <span class="n">image_format</span><span class="o">=</span><span class="s1">&#39;png&#39;</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span></code>
+
+<a href="#ductile_loads.LoadSetCompare.generate_comparison_report" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Export complete comparison report including JSON data and chart images.</p>
+<p>Creates a comprehensive report with:
+- JSON file containing comparison data and generated chart filenames
+- Chart image files for each point comparison</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>output_dir</code>
+            </td>
+            <td>
+                  <code><span title="os.PathLike">PathLike</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Directory to save the report files</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>report_name</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Base name for the report files (default: "comparison_report")</p>
+              </div>
+            </td>
+            <td>
+                  <code>&#39;comparison_report&#39;</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>image_format</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Image format for charts (png, svg)</p>
+              </div>
+            </td>
+            <td>
+                  <code>&#39;png&#39;</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>indent</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>JSON indentation level</p>
+              </div>
+            </td>
+            <td>
+                  <code>2</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+<th>Name</th>          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+<td><code>Path</code></td>            <td>
+                  <code><span title="pathlib.Path">Path</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Path to the generated JSON report file</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="ImportError">ImportError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If matplotlib is not available</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="FileNotFoundError">FileNotFoundError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If output directory doesn't exist and can't be created</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="ValueError">ValueError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If report generation fails</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="ductile_loads.LoadSetCompare.generate_range_charts" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">generate_range_charts</span><span class="p">(</span><span class="n">output_dir</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">image_format</span><span class="o">=</span><span class="s1">&#39;png&#39;</span><span class="p">,</span> <span class="n">as_base64</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+
+<a href="#ductile_loads.LoadSetCompare.generate_range_charts" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Generate range bar chart images comparing LoadSets for each point.</p>
+<p>Creates dual subplot charts showing force and moment ranges with bars
+representing the min-to-max range for each component.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>output_dir</code>
+            </td>
+            <td>
+                  <code><span title="os.PathLike">PathLike</span> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Directory to save the generated images (required if as_base64=False)</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>image_format</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Image format (png, svg)</p>
+              </div>
+            </td>
+            <td>
+                  <code>&#39;png&#39;</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>as_base64</code>
+            </td>
+            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If True, return base64-encoded strings instead of saving files</p>
+              </div>
+            </td>
+            <td>
+                  <code>False</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+<th>Name</th>          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+<td><code>dict</code></td>            <td>
+                  <code><span title="dict">dict</span>[<span title="str">str</span>, <span title="pathlib.Path">Path</span> | <span title="str">str</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If as_base64=False, mapping of point names to generated image file paths.
+  If as_base64=True, mapping of point names to base64-encoded image strings.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="ImportError">ImportError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If matplotlib is not available</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="FileNotFoundError">FileNotFoundError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If output directory doesn't exist and can't be created (when as_base64=False)</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="ValueError">ValueError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If output_dir is None and as_base64=False</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="ductile_loads.ComparisonRow" class="doc doc-heading">
+            <code>ductile_loads.ComparisonRow</code>
+
+
+<a href="#ductile_loads.ComparisonRow" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents first">
+
+
+
+        <p>ComparisonRow represents one row in a LoadSet comparison table.
+Each row compares a specific point/component/type combination between two LoadSets.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["content.code.copy", "navigation.sections"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

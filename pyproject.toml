@@ -1,11 +1,15 @@
 [project]
 name = "ductile-loads"
-version = "1.2.0"
+version = "1.2.1"
 description = "Loads processing tool for structural analysis — certified under DQMS"
 readme = "README.md"
 license = "MIT"
 requires-python = ">=3.13"
 authors = [{ name = "Alex Pradas" }]
+classifiers = [
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+]
 dependencies = ["pydantic"]
 
 [project.optional-dependencies]

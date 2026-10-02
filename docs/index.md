@@ -20,6 +20,19 @@ Or with pip:
 pip install ductile-loads
 ```
 
+## Documentation for the installed version
+
+The package ships this documentation as plain text (`llms-full.txt`), so it always matches the
+installed release and needs no network:
+
+```bash
+ductile-loads docs          # print the full documentation
+ductile-loads docs --path   # print where the file is
+uvx ductile-loads docs      # without installing the package first
+```
+
+In Python: `ductile_loads.api_reference()` returns the same text.
+
 ## Quick start
 
 ```python

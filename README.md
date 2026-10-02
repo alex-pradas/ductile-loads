@@ -15,6 +15,8 @@ This is a sample tool as part of the DUCTILE agentic orchestration paper. See th
 
 Full documentation: [alex-pradas.github.io/ductile-loads](https://alex-pradas.github.io/ductile-loads)
 
+The same documentation ships with the package, matching the installed version: `ductile-loads docs` prints it (or `ductile_loads.api_reference()` in Python).
+
 ## Install
 
 ```bash

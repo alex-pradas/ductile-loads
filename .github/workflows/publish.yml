@@ -44,8 +44,26 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
 
+  packaged-docs:
+    # The package ships the docs site's llms-full.txt (`ductile-loads docs`); it must match a fresh build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v4
+
+      - name: Set up Python
+        run: uv python install 3.13
+
+      - name: Rebuild the packaged documentation
+        run: uv run --extra docs python scripts/build_package_docs.py
+
+      - name: Packaged documentation is up to date
+        run: git diff --exit-code src/ductile_loads/llms-full.txt
+
   publish:
-    needs: test
+    needs: [test, packaged-docs]
     runs-on: ubuntu-latest
     if: github.event_name == 'release'
     permissions:

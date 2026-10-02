@@ -1,6 +1,6 @@
 [project]
 name = "ductile-loads"
-version = "1.2.1"
+version = "1.3.0"
 description = "Loads processing tool for structural analysis — certified under DQMS"
 readme = "README.md"
 license = "MIT"
@@ -11,6 +11,9 @@ classifiers = [
     "Programming Language :: Python :: 3.14",
 ]
 dependencies = ["pydantic"]
+
+[project.scripts]
+ductile-loads = "ductile_loads.cli:main"
 
 [project.optional-dependencies]
 display = ["rich"]

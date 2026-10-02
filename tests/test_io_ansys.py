@@ -210,3 +210,77 @@ class TestToAnsys:
         simple_loadset.to_ansys(folder_path=out)
         content = (out / "Case_A.inp").read_text()
         assert content.rstrip().endswith("alls")
+
+
+def _renamed(loadset: LoadSet, names: list[str]) -> LoadSet:
+    """Copy of a LoadSet with its load cases renamed in order."""
+    cases = [lc.model_copy(update={"name": n}) for lc, n in zip(loadset.load_cases, names)]
+    return loadset.model_copy(update={"load_cases": cases})
+
+
+class TestToAnsysFileName:
+    def test_number_template_keeps_title(self, simple_loadset, tmp_path):
+        ls = _renamed(simple_loadset, ["Limit_2", "Limit_20"])
+        ls.to_ansys(folder_path=tmp_path, file_name="limit_load_{number}.inp")
+        assert sorted(f.name for f in tmp_path.glob("*.inp")) == ["limit_load_2.inp", "limit_load_20.inp"]
+        assert (tmp_path / "limit_load_2.inp").read_text().startswith("/TITLE,Limit_2\n")
+
+    def test_name_and_index_fields(self, simple_loadset, tmp_path):
+        simple_loadset.to_ansys(folder_path=tmp_path, file_name="{index:02d}_{name}")
+        assert sorted(f.name for f in tmp_path.glob("*.inp")) == ["01_Case_A.inp", "02_Case_B.inp"]
+
+    def test_number_is_an_integer(self, simple_loadset, tmp_path):
+        ls = _renamed(simple_loadset, ["Limit_002", "Limit_3"])
+        ls.to_ansys(folder_path=tmp_path, file_name="lc{number:03d}")
+        assert sorted(f.name for f in tmp_path.glob("*.inp")) == ["lc002.inp", "lc003.inp"]
+
+    def test_callable(self, simple_loadset, tmp_path):
+        simple_loadset.to_ansys(folder_path=tmp_path, file_name=lambda lc: lc.name.lower())
+        assert sorted(f.name for f in tmp_path.glob("*.inp")) == ["case_a.inp", "case_b.inp"]
+        assert "/TITLE,Case_A" in (tmp_path / "case_a.inp").read_text()
+
+    def test_with_name_stem_raises(self, simple_loadset, tmp_path):
+        with pytest.raises(ValueError, match="either file_name or name_stem"):
+            simple_loadset.to_ansys(folder_path=tmp_path, name_stem="x", file_name="{name}")
+
+    def test_number_missing_raises_and_writes_nothing(self, simple_loadset, tmp_path):
+        out = tmp_path / "out"
+        out.mkdir()
+        (out / "keep.inp").write_text("old")
+        with pytest.raises(ValueError, match="does not end in a number"):
+            simple_loadset.to_ansys(folder_path=out, file_name="limit_load_{number}")
+        assert (out / "keep.inp").exists()  # the folder is untouched on a naming error
+
+    def test_unknown_field_raises(self, simple_loadset, tmp_path):
+        with pytest.raises(ValueError, match="unknown fields"):
+            simple_loadset.to_ansys(folder_path=tmp_path, file_name="{id}")
+
+    def test_duplicate_names_raise(self, simple_loadset, tmp_path):
+        with pytest.raises(ValueError, match="same file name"):
+            simple_loadset.to_ansys(folder_path=tmp_path, file_name="same")
+
+    def test_path_separator_raises(self, simple_loadset, tmp_path):
+        with pytest.raises(ValueError, match="bare file name"):
+            simple_loadset.to_ansys(folder_path=tmp_path, file_name="sub/{name}")
+
+
+class TestPilotPrefixWarning:
+    def _with_point_name(self, loadset: LoadSet, name: str) -> LoadSet:
+        case = loadset.load_cases[0]
+        points = [case.point_loads[0].model_copy(update={"name": name}), *case.point_loads[1:]]
+        return loadset.model_copy(update={"load_cases": [case.model_copy(update={"point_loads": points})]})
+
+    def test_warns_on_double_prefix(self, simple_loadset, tmp_path):
+        ls = self._with_point_name(simple_loadset, "pilot_lug_port")
+        with pytest.warns(UserWarning, match="pilot_pilot_lug_port"):
+            ls.to_ansys(folder_path=tmp_path)
+        assert "cmsel,s,pilot_pilot_lug_port" in (tmp_path / "Case_A.inp").read_text()
+
+    def test_no_warning_for_excluded_point(self, simple_loadset, tmp_path, recwarn):
+        ls = self._with_point_name(simple_loadset, "pilot_bearing")
+        ls.to_ansys(folder_path=tmp_path, exclude=["pilot_bearing"])
+        assert not [w for w in recwarn if "pilot_" in str(w.message)]
+
+    def test_no_warning_for_plain_names(self, simple_loadset, tmp_path, recwarn):
+        simple_loadset.to_ansys(folder_path=tmp_path)
+        assert not [w for w in recwarn if "pilot_" in str(w.message)]

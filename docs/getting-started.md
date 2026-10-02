@@ -82,7 +82,7 @@ envelope.get_point_extremes(output="envelope_extremes.json")
 1. **`read_json`** parses the JSON file and validates it against the `LoadSet` schema
 2. **`convert_to("N")`** converts all force/moment values to SI units (N and Nm), returning a new `LoadSet`
 3. **`envelope()`** identifies load cases with extreme values (max, and min if negative) across all points and components, returning a reduced `LoadSet`
-4. **`to_ansys`** writes one `.inp` file per load case with ANSYS `F` commands
+4. **`to_ansys`** writes one `.inp` file per load case with ANSYS `F` commands, titled with the load case name (`/TITLE,<name>`). Use `file_name=` to name the files independently of the title, e.g. `file_name="limit_load_{number}.inp"` (see [Formats](formats.md#file-names))
 5. **`envelope_to_markdown`** produces a Markdown table summarizing the envelope bounds
 6. **`get_point_extremes`** extracts per-point, per-component max/min values with load case traceability
 

@@ -1,8 +1,11 @@
+from collections.abc import Callable
 from typing import Literal
 from pathlib import Path
 from os import PathLike
 import json
 import re
+import string
+import warnings
 from pydantic import BaseModel, ValidationError
 
 # Type aliases for units
@@ -907,6 +910,7 @@ class LoadSet(BaseModel):
         folder_path: str | PathLike = "temp",
         name_stem: str | None = None,
         exclude: list[str] | None = None,
+        file_name: str | Callable[[LoadCase], str] | None = None,
     ) -> None:
         """
         Export LoadSet to ANSYS load files.
@@ -914,20 +918,70 @@ class LoadSet(BaseModel):
         Creates one file per load case with ANSYS F command format.
         Creates the output folder if it doesn't exist and cleans any existing files.
 
+        Each file starts with `/TITLE,<load case name>`, whatever the file is called.
+        Point names are prefixed with `pilot_` to form the FE component name, so a point
+        named `lug_port` is selected as `pilot_lug_port`. A point name that already starts
+        with `pilot_` triggers a warning, since it would select `pilot_pilot_...`.
+
         Args:
             folder_path: Directory to save the files. Defaults to 'temp'.
             name_stem: Optional base name for the files. If None, uses only load case names.
+                Files are named `<name_stem>_<load case name>.inp`.
             exclude: List of point names to exclude from export.
+            file_name: Optional file name for each load case, independent of the `/TITLE`.
+                Either a format string with the fields `{name}` (the sanitized load case
+                name), `{number}` (the number at the end of the load case name, e.g. `2`
+                for `Limit_2`) and `{index}` (the 1-based position in the set), or a
+                callable that takes the `LoadCase` and returns the file name. `.inp` is
+                appended if missing. Cannot be combined with `name_stem`.
 
         Raises:
             FileNotFoundError: If the folder path exists but is not a directory
+            ValueError: If `file_name` and `name_stem` are both given, a `{number}` field
+                is used for a load case name that does not end in a number, a file name
+                contains a path separator, or two load cases get the same file name.
+
+        Example:
+            ```python
+            # limit_load_2.inp with /TITLE,Limit_2
+            ls.to_ansys("limit_loads", file_name="limit_load_{number}.inp")
+            ```
         """
+        if file_name is not None and name_stem is not None:
+            raise ValueError("Give either file_name or name_stem, not both")
+
         folder = Path(folder_path)
 
         # Check if path exists and is not a directory
         if folder.exists() and not folder.is_dir():
             raise FileNotFoundError(
                 f"Path exists but is not a directory: {folder_path}"
+            )
+
+        # Resolve every file name before touching the folder, so a naming error writes nothing
+        file_names = [
+            self._ansys_file_name(load_case, index, name_stem, file_name)
+            for index, load_case in enumerate(self.load_cases, 1)
+        ]
+        duplicates = sorted({n for n in file_names if file_names.count(n) > 1})
+        if duplicates:
+            raise ValueError(f"Several load cases map to the same file name: {duplicates}")
+
+        exclude_set = set(exclude) if exclude else set()
+        prefixed = sorted({
+            point_load.name
+            for load_case in self.load_cases
+            for point_load in load_case.point_loads
+            if point_load.name and point_load.name.lower().startswith("pilot_")
+            and point_load.name not in exclude_set
+        })
+        for name in prefixed:
+            warnings.warn(
+                f"Point name '{name}' already starts with 'pilot_'. to_ansys adds the prefix "
+                f"itself, so the file selects component 'pilot_{name}'. Name the point "
+                f"'{name[len('pilot_'):]}' to select 'pilot_{name[len('pilot_'):]}'.",
+                UserWarning,
+                stacklevel=2,
             )
 
         # Create folder if it doesn't exist
@@ -938,17 +992,7 @@ class LoadSet(BaseModel):
             if file.is_file():
                 file.unlink()
 
-        # Return early if no load cases
-        if not self.load_cases:
-            return
-
-        for load_case in self.load_cases:
-            # Sanitize load case name for filename
-            sanitized_name = _sanitize_filename(load_case.name or "unnamed")
-            if name_stem is None:
-                filename = f"{sanitized_name}.inp"
-            else:
-                filename = f"{name_stem}_{sanitized_name}.inp"
+        for load_case, filename in zip(self.load_cases, file_names):
             file_path = folder / filename
 
             # Generate ANSYS commands
@@ -957,6 +1001,44 @@ class LoadSet(BaseModel):
             # Write to file
             with open(file_path, "w", encoding="utf-8") as f:
                 f.write(ansys_content)
+
+    @staticmethod
+    def _ansys_file_name(
+        load_case: LoadCase,
+        index: int,
+        name_stem: str | None,
+        file_name: str | Callable[[LoadCase], str] | None,
+    ) -> str:
+        """File name of one load case's `.inp` file (see `to_ansys`)."""
+        sanitized_name = _sanitize_filename(load_case.name or "unnamed")
+        if file_name is None:
+            if name_stem is None:
+                return f"{sanitized_name}.inp"
+            return f"{name_stem}_{sanitized_name}.inp"
+        if callable(file_name):
+            name = file_name(load_case)
+        else:
+            fields = {field for _, field, _, _ in string.Formatter().parse(file_name) if field}
+            unknown = fields - {"name", "number", "index"}
+            if unknown:
+                raise ValueError(
+                    f"file_name has unknown fields {sorted(unknown)}; use {{name}}, {{number}} "
+                    "or {index}"
+                )
+            number = re.search(r"(\d+)$", load_case.name or "")
+            if "number" in fields and number is None:
+                raise ValueError(
+                    f"file_name uses {{number}}, but load case name {load_case.name!r} "
+                    "does not end in a number"
+                )
+            name = file_name.format(
+                name=sanitized_name,
+                number=int(number.group(1)) if number else 0,
+                index=index,
+            )
+        if "/" in name or "\\" in name:
+            raise ValueError(f"file_name must be a bare file name, got {name!r}")
+        return name if name.endswith(".inp") else f"{name}.inp"
 
     def _generate_ansys_content(
         self, load_case: LoadCase, exclude: list[str] | None = None

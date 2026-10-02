@@ -76,8 +76,28 @@ alls
 - `f,all,{component},{value}` — applies a force or moment component
 - Only non-zero components are written
 - Component order: fx, fy, mx, my, mz, fz
-- Point names are automatically prefixed with `pilot_`
+- Point names are automatically prefixed with `pilot_`: name points without the prefix (point `lug_port` → component `pilot_lug_port`). `to_ansys` warns when a point name already starts with `pilot_`, since the file would select `pilot_pilot_...`
 - Values are formatted in scientific notation (3 decimal places)
+
+### File names
+
+The `/TITLE` line always carries the load case name. The file name is chosen separately:
+
+| Call | Load case `Limit_2` is written to |
+|---|---|
+| `to_ansys("out")` | `out/Limit_2.inp` |
+| `to_ansys("out", name_stem="limit_load")` | `out/limit_load_Limit_2.inp` |
+| `to_ansys("out", file_name="limit_load_{number}.inp")` | `out/limit_load_2.inp` |
+
+`file_name` is a format string with the fields `{name}` (the sanitized load case name),
+`{number}` (the number at the end of the load case name: `2` for `Limit_2`) and `{index}` (the
+1-based position in the set), or a function that takes the `LoadCase` and returns the file name.
+`.inp` is added if missing. In every case the file still starts with `/TITLE,Limit_2`.
+`to_ansys` raises `ValueError` before writing anything if:
+
+- `file_name` and `name_stem` are both given;
+- `{number}` is used for a load case name that doesn't end in a number;
+- two load cases would get the same file name.
 
 ### Reading ANSYS files
 

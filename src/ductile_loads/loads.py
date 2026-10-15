@@ -405,15 +405,16 @@ class LoadSetCompare(BaseModel):
                 None,
             )
 
-            if max_row and min_row:
+            if max_row:
+                # No min row: the min is not negative in either set (compare_to), so the range starts at 0
                 component_data[component] = {
-                    "loadset1_min": min_row.loadset1_value,
+                    "loadset1_min": min_row.loadset1_value if min_row else 0.0,
                     "loadset1_max": max_row.loadset1_value,
-                    "loadset2_min": min_row.loadset2_value,
+                    "loadset2_min": min_row.loadset2_value if min_row else 0.0,
                     "loadset2_max": max_row.loadset2_value,
-                    "loadset1_min_case": min_row.loadset1_loadcase,
+                    "loadset1_min_case": min_row.loadset1_loadcase if min_row else "N/A",
                     "loadset1_max_case": max_row.loadset1_loadcase,
-                    "loadset2_min_case": min_row.loadset2_loadcase,
+                    "loadset2_min_case": min_row.loadset2_loadcase if min_row else "N/A",
                     "loadset2_max_case": max_row.loadset2_loadcase,
                 }
 
@@ -1197,8 +1198,12 @@ class LoadSet(BaseModel):
         """Compare this LoadSet's envelope to another LoadSet's envelope.
 
         Units are auto-converted if they differ (converts `other` to match
-        `self`). For each shared point and component, a ComparisonRow is
-        created for both the max and min extremes, with absolute and
+        `self`). For each point and component, a ComparisonRow is created for
+        the max extreme and, following the same rule as `envelope()`, for the
+        min extreme only when it is negative in at least one of the two sets.
+        A min that is zero or positive in both sets is not compared: in an
+        envelope it is not a real minimum, only the lowest value among the
+        load cases kept for other extremes. Each row carries absolute and
         percentage differences.
 
         Args:
@@ -1312,6 +1317,10 @@ class LoadSet(BaseModel):
                     other_min_case = other_extremes[point_name][component]["min"][
                         "loadcase"
                     ]
+
+                # Compare the min only if it is negative in at least one set (envelope() rule)
+                if self_min_val >= 0.0 and other_min_val >= 0.0:
+                    continue
 
                 # Calculate differences for min
                 abs_diff_min = abs(other_min_val - self_min_val)

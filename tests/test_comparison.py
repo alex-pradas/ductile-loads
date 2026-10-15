@@ -186,6 +186,38 @@ class TestNewExceedsOld:
         # max: 100 vs 80 → no exceed. min: -50 vs -100 → exceeds (more negative)
         assert cmp.new_exceeds_old() is True
 
+    def test_positive_min_in_both_sets_not_compared(self):
+        """A min that is not negative in either set has no row (envelope() rule)."""
+        ls1 = _make_loadset(
+            "A", 1, "N", "Nm",
+            [("C1", [("P", {"fx": 100.0})]), ("C2", [("P", {"fx": 20.0})])],
+        )
+        ls2 = _make_loadset(
+            "B", 1, "N", "Nm",
+            [("C1", [("P", {"fx": 90.0})]), ("C2", [("P", {"fx": 10.0})])],
+        )
+        cmp = ls1.compare_to(ls2)
+        assert [r.type for r in cmp.comparison_rows] == ["max"]
+        # min 20 -> 10 would count as an exceedance; it is not a real minimum
+        assert cmp.new_exceeds_old() is False
+
+    def test_min_negative_in_one_set_is_compared(self):
+        """A min that turns negative in the new set is compared and exceeds."""
+        ls1 = _make_loadset(
+            "A", 1, "N", "Nm",
+            [("C1", [("P", {"fx": 100.0})]), ("C2", [("P", {"fx": 20.0})])],
+        )
+        ls2 = _make_loadset(
+            "B", 1, "N", "Nm",
+            [("C1", [("P", {"fx": 90.0})]), ("C2", [("P", {"fx": -10.0})])],
+        )
+        cmp = ls1.compare_to(ls2)
+        mins = [r for r in cmp.comparison_rows if r.type == "min"]
+        assert len(mins) == 1
+        assert mins[0].loadset1_value == pytest.approx(20.0)
+        assert mins[0].loadset2_value == pytest.approx(-10.0)
+        assert cmp.new_exceeds_old() is True
+
     def test_does_not_exceed_when_within_range(self):
         ls1 = _make_loadset(
             "A", 1, "N", "Nm",

@@ -58,6 +58,9 @@ env_new = ls_new_si.envelope()
 # Compare (auto-converts units if needed)
 comparison = env_old.compare_to(env_new)
 
+# Rows: the max of every non-zero component, and the min only where it is
+# negative in at least one of the two sets (the same rule as envelope())
+
 # Check if new loads exceed old envelope in any component
 if comparison.new_exceeds_old():
     print("New loads exceed old envelope in at least one component")

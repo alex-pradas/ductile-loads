@@ -116,3 +116,21 @@ class TestGenerateComparisonReport:
         )
         svgs = list(tmp_path.glob("*.svg"))
         assert len(svgs) > 0
+
+
+def test_chart_with_positive_only_component(tmp_path):
+    """A component without a min row (positive in both sets) is still drawn, from 0."""
+    def ls(v):
+        return LoadSet(
+            name="S", version=1, units=Units(forces="N", moments="Nm"),
+            load_cases=[
+                LoadCase(name="C1", point_loads=[PointLoad(name="P", force_moment=ForceMoment(fx=v, mz=-v))]),
+                LoadCase(name="C2", point_loads=[PointLoad(name="P", force_moment=ForceMoment(fx=v / 2, mz=v))]),
+            ],
+        )
+    cmp = ls(100.0).compare_to(ls(120.0))
+    assert not [r for r in cmp.comparison_rows if r.component == "fx" and r.type == "min"]
+    files = cmp.generate_range_charts(output_dir=tmp_path)
+    assert files["P"].exists()
+    ranges = cmp._extract_component_ranges(cmp.comparison_rows, ["fx"])
+    assert ranges["fx"]["loadset1_min"] == 0.0 and ranges["fx"]["loadset2_max"] == pytest.approx(120.0)

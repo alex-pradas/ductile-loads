@@ -420,7 +420,7 @@ Returns:
 
 Compare this LoadSet's envelope to another LoadSet's envelope.
 
-Units are auto-converted if they differ (converts `other` to match `self`). For each shared point and component, a ComparisonRow is created for both the max and min extremes, with absolute and percentage differences.
+Units are auto-converted if they differ (converts `other` to match `self`). For each point and component, a ComparisonRow is created for the max extreme and, following the same rule as `envelope()`, for the min extreme only when it is negative in at least one of the two sets. A min that is zero or positive in both sets is not compared: in an envelope it is not a real minimum, only the lowest value among the load cases kept for other extremes. Each row carries absolute and percentage differences.
 
 Parameters:
 
@@ -866,6 +866,9 @@ env_new = ls_new_si.envelope()
 
 # Compare (auto-converts units if needed)
 comparison = env_old.compare_to(env_new)
+
+# Rows: the max of every non-zero component, and the min only where it is
+# negative in at least one of the two sets (the same rule as envelope())
 
 # Check if new loads exceed old envelope in any component
 if comparison.new_exceeds_old():

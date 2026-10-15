@@ -1,0 +1,148 @@
+# Input/Output Formats
+
+## JSON input
+
+`LoadSet.read_json()` expects a JSON file matching the Pydantic schema:
+
+```
+{
+  "name": "Supplier Forces v1",
+  "version": 1,
+  "units": {"forces": "N", "moments": "Nm"},
+  "loads_type": "limit",
+  "load_cases": [
+    {
+      "name": "Case_A",
+      "description": "Full braking at 120 km/h",
+      "point_loads": [
+        {
+          "name": "left_mount",
+          "force_moment": {
+            "fx": 100.0,
+            "fy": -50.0,
+            "fz": 0.0,
+            "mx": 0.0,
+            "my": 0.0,
+            "mz": 0.0
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+
+### Required fields
+
+- `name` — load set identifier (string or null)
+- `version` — integer version number
+- `units` — object with `forces` and `moments` keys
+- `load_cases` — array of load case objects
+
+### Optional fields
+
+- `description` — free-text description
+- `loads_type` — `"limit"` or `"ultimate"` (or null)
+
+You can generate the full JSON Schema programmatically:
+
+```
+from ductile_loads import LoadSet
+
+schema = LoadSet.generate_json_schema(output_file="loadset_schema.json")
+```
+
+## ANSYS output (.inp)
+
+`to_ansys()` generates one `.inp` file per load case. Each file contains ANSYS APDL commands:
+
+```
+/TITLE,Case_A
+nsel,u,,,all
+
+cmsel,s,pilot_left_mount
+f,all,fx,1.000e+02
+f,all,fy,-5.000e+01
+nsel,u,,,all
+
+
+alls
+```
+
+### Format details
+
+- `/TITLE,{loadcase_name}` — sets the load case name
+- `cmsel,s,pilot_{point_name}` — selects the pilot node for a point
+- `f,all,{component},{value}` — applies a force or moment component
+- Only non-zero components are written
+- Component order: fx, fy, mx, my, mz, fz
+- Point names are automatically prefixed with `pilot_`: name points without the prefix (point `lug_port` → component `pilot_lug_port`). `to_ansys` warns when a point name already starts with `pilot_`, since the file would select `pilot_pilot_...`
+- Values are formatted in scientific notation (3 decimal places)
+
+### File names
+
+The `/TITLE` line always carries the load case name. The file name is chosen separately:
+
+| Call                                                   | Load case `Limit_2` is written to |
+| ------------------------------------------------------ | --------------------------------- |
+| `to_ansys("out")`                                      | `out/Limit_2.inp`                 |
+| `to_ansys("out", name_stem="limit_load")`              | `out/limit_load_Limit_2.inp`      |
+| `to_ansys("out", file_name="limit_load_{number}.inp")` | `out/limit_load_2.inp`            |
+
+`file_name` is a format string with the fields `{name}` (the sanitized load case name), `{number}` (the number at the end of the load case name: `2` for `Limit_2`) and `{index}` (the 1-based position in the set), or a function that takes the `LoadCase` and returns the file name. `.inp` is added if missing. In every case the file still starts with `/TITLE,Limit_2`. `to_ansys` raises `ValueError` before writing anything if:
+
+- `file_name` and `name_stem` are both given;
+- `{number}` is used for a load case name that doesn't end in a number;
+- two load cases would get the same file name.
+
+### Reading ANSYS files
+
+To read an existing `.inp` file back into a `LoadSet`:
+
+```
+from ductile_loads import LoadSet, Units
+
+ls = LoadSet.read_ansys(
+    "design_load_01.inp",
+    units=Units(forces="N", moments="Nm"),
+    name="Imported loads",
+)
+```
+
+## Markdown output
+
+`envelope_to_markdown()` generates a Markdown table:
+
+```
+## Supplier Forces v1 — Envelope Summary
+
+Version: 1 | Units: N, Nm
+
+| Point | Type | FX | FY | FZ | MX | MY | MZ |
+|-------|------|-------:|-------:|-------:|-------:|-------:|-------:|
+| left_mount | max | 100.0 | 0.000 | 50.0 | 0.000 | 0.000 | 0.000 |
+| | min | -20.0 | -50.0 | 0.000 | 0.000 | 0.000 | 0.000 |
+
+Points: 1 | From 5 load cases
+```
+
+## JSON extremes output
+
+`get_point_extremes()` returns (and optionally writes) a nested dictionary:
+
+```
+{
+  "left_mount": {
+    "fx": {
+      "max": {"value": 100.0, "loadcase": "Case_A"},
+      "min": {"value": -20.0, "loadcase": "Case_C"}
+    },
+    "fy": {
+      "max": {"value": 0.0, "loadcase": "Case_A"},
+      "min": {"value": -50.0, "loadcase": "Case_A"}
+    }
+  }
+}
+```
+
+Components where both max and min are zero are filtered out.

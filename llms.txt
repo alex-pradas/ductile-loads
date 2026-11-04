@@ -1,0 +1,12 @@
+# ductile-loads
+
+> Loads processing tool for structural analysis
+
+## Documentation
+
+- [Home](https://alex-pradas.github.io/ductile-loads/index.md): Project overview and quick start
+- [Getting Started](https://alex-pradas.github.io/ductile-loads/getting-started/index.md): Installation and first script
+- [API Reference](https://alex-pradas.github.io/ductile-loads/api-reference/index.md): Full API reference for all classes and methods
+- [Formats](https://alex-pradas.github.io/ductile-loads/formats/index.md): JSON input, ANSYS output, and Markdown output formats
+- [Examples](https://alex-pradas.github.io/ductile-loads/examples/index.md): Usage examples for common workflows
+
